@@ -36,7 +36,7 @@ def objectDetection(path2Folder, targetClass, imgCounter, captureDevice = 1):
         classCounts = countObject(predictions, targetClass)
         return classCounts[targetClass]
 
-    for i in range(5, 0, -1):
+    for i in range(10, 0, -1):
         print("Countdown:", i)
         time.sleep(1)
     print("objectDetection!")

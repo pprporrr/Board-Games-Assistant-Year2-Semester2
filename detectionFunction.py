@@ -12,11 +12,17 @@ def delete(path2Folder):
         except Exception as e:
             pass
 
-def objectDetection(path2Folder, targetClass, imgCounter, captureDevice = 1):
-    rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
-    project = rf.workspace().project("yolov5-avalon")
-    model = project.version(3).model
-    cap = cv2.VideoCapture(captureDevice)
+def objectDetection(path2Folder, state, targetClass, imgCounter, captureDevice = 1):
+    if (state == "Init"):
+        rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
+        project = rf.workspace().project("yolov5-avalon")
+        model = project.version(3).model
+        cap = cv2.VideoCapture(captureDevice)
+    elif (state == "Vote"):
+        rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
+        project = rf.workspace().project("yolov5-avalon")
+        model = project.version(3).model
+        cap = cv2.VideoCapture(captureDevice)
 
     def countObject(predictions, targetClass):
         objectCounts = {targetClass: 0}
@@ -30,7 +36,7 @@ def objectDetection(path2Folder, targetClass, imgCounter, captureDevice = 1):
         if not ret:
             print("Error: could not read frame from video stream")
             return
-        imgName = f"{targetClass}_{imgCounter}.png"
+        imgName = f"{state}_{imgCounter}.png"
         cv2.imwrite(os.path.join(path2Folder, imgName), frame)
         predictions = model.predict(f'{path2Folder}/{imgName}')
         classCounts = countObject(predictions, targetClass)

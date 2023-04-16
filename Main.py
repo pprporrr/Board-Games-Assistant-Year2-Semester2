@@ -12,32 +12,38 @@ def countObject(predictions, targetClass):
             objectCounts[targetClass] += 1
     return objectCounts
 
-def testobjectDetection(targetClass):
+def testobjectDetection(imgPath,targetClass):
     rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
     project = rf.workspace().project("yolov5-avalon")
     model = project.version(3).model
-    predictions = model.predict("/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/IMG_6153.JPG")
+    predictions = model.predict(f"{imgPath}")
     classCounts = countObject(predictions, targetClass)
     return classCounts[targetClass], predictions
 
-result, resultsJson = testobjectDetection("success")
+def testcountHand(path):
+    image = Image.open(path)
+    pred = predictKeypoints(image)
+    image = np.asarray(image)
+    handUp = countHand(pred)
+    for idx in handUp:
+        plot_skeleton_kpts(image, pred[idx].T, 3)
+    image = Image.fromarray(image)
+    return len(handUp), image
 
-print("objectCount: ", result)
+#Object Detection Function
+imgPathObj = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/IMG_6153.JPG"
+objectDetectresult, resultsJson = testobjectDetection(imgPathObj, "success")
+print("Number Of Objects: ", objectDetectresult)
 print(resultsJson)
 
-#path2Folder = "assets/captureIMG"
+#Cound Hand Function
+imgPathHand = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/test5.jpg"
+countHandResult, countedImg = testcountHand(imgPathHand)
+print("Hand Up: ", countHandResult)
+countedImg.show()
 
-#result = objectDetection(path2Folder, "success", 1)
-
-#delete(path2Folder)
-
-IMAGEFILE = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/test5.jpg"
-image = Image.open(IMAGEFILE)
-pred = predictKeypoints(image)
-image = np.asarray(image)
-handUp = countHand(pred)
-print("handCount: ", len(handUp))
-for idx in handUp:
-    plot_skeleton_kpts(image, pred[idx].T, 3)
-image = Image.fromarray(image)
-image.show()
+"""Use in detectionFunction.py
+path2Folder = "assets/captureIMG"
+objectDetectResult = objectDetection(path2Folder, "Vote", "success", 1)
+print("Number Of Objects: ", objectDetectResult)
+delete(path2Folder)"""

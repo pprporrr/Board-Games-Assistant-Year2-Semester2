@@ -12,7 +12,7 @@ def delete(path2Folder):
         except Exception as e:
             pass
 
-def objectDetection(path2Folder, state, targetClass, imgCounter, captureDevice = 1):
+def objectDetection(path2Folder, state, targetClass, imgCounter, captureDevice = 0):
     if (state == "Init"):
         rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
         project = rf.workspace().project("yolov5-avalon")

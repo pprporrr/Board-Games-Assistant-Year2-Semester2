@@ -1,10 +1,8 @@
-#from detectionFunction import objectDetection, delete
-#from counthandFunction import predictKeypoints, countHand
 from utils.general import non_max_suppression_kpt
 from models.experimental import attempt_load
 from utils.plots import plot_skeleton_kpts
 from utils.plots import output_to_keypoint
-import cv2, torch, numpy as np
+import cv2, torch, time, numpy as np
 from roboflow import Roboflow
 from os import system, name
 from PIL import Image
@@ -15,8 +13,7 @@ DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 handModel = attempt_load(WEIGHTS, DEVICE)
 rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
 project = rf.workspace().project("yolov5-avalon")
-objectModel = project.version(3).model
-
+objectModel = project.version(4).model
 
 def clear():
     if name == 'nt':
@@ -30,22 +27,6 @@ def findAngular(arm, shoder, body):
     cosineAngle = np.dot(vectorArm,vectorBody) / (np.linalg.norm(vectorArm) * np.linalg.norm(vectorBody))
     angle = np.arccos(cosineAngle)
     return angle * np.pi / 6
-
-def countObject(predictions, targetClass):
-    objectCounts = {targetClass: 0}
-    for prediction in predictions:
-        if prediction["class"] == targetClass:
-            objectCounts[targetClass] += 1
-    return objectCounts
-
-def countHand(predictions):
-    count = []
-    for i in range(predictions.shape[0]):
-        angularRight = findAngular(predictions[0][24:27], predictions[0][18:21], predictions[0][36:39]) * 100
-        angularLeft = findAngular(predictions[0][21:24], predictions[0][15:18], predictions[0][33:36]) * 100
-        if angularLeft >= 100 or angularRight >= 100:
-            count.append(i)
-    return count
 
 def predictKeypoints(image, imageSize=640, confThresh=0.25, iouThresh=0.65):
     image = np.asarray(image)
@@ -65,10 +46,14 @@ def predictKeypoints(image, imageSize=640, confThresh=0.25, iouThresh=0.65):
     predictions[:, 1::3] *= H / imageSize
     return predictions
 
-def testobjectDetection(imgPath,targetClass):
-    predictions = objectModel.predict(f"{imgPath}")
-    classCounts = countObject(predictions, targetClass)
-    return classCounts[targetClass], predictions
+def countHand(predictions):
+    count = []
+    for i in range(predictions.shape[0]):
+        angularRight = findAngular(predictions[0][24:27], predictions[0][18:21], predictions[0][36:39]) * 100
+        angularLeft = findAngular(predictions[0][21:24], predictions[0][15:18], predictions[0][33:36]) * 100
+        if angularLeft >= 100 or angularRight >= 100:
+            count.append(i)
+    return count
 
 def testcountHand(path):
     image = Image.open(path)
@@ -80,21 +65,36 @@ def testcountHand(path):
     image = Image.fromarray(image)
     return len(handUp), image
 
+def countObject(predictions, targetClass):
+    objectCounts = {targetClass: 0}
+    for prediction in predictions:
+        if prediction["class"] == targetClass:
+            objectCounts[targetClass] += 1
+    return objectCounts
+
+def testobjectDetection(imgPath,targetClass):
+    predictions = objectModel.predict(f"{imgPath}")
+    classCounts = countObject(predictions, targetClass)
+    return classCounts[targetClass], predictions
+
 if __name__ == "__main__":
     print("Done")
     clear()
+    start_time = time.time()
     #Object Detection Function
     tagetClass = "success"
     imgPathObj = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/IMG_6153.JPG"
     objectDetectresult, resultsJson = testobjectDetection(imgPathObj, tagetClass)
     print(f"Number Of Objects [{tagetClass}]:", objectDetectresult)
     print(resultsJson)
-
+    print(time.time() - start_time)
+    start_time = time.time()
     #Cound Hand Function
     imgPathHand = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/test5.jpg"
     countHandResult, countedImg = testcountHand(imgPathHand)
     print("Hand Up: ", countHandResult)
     countedImg.show()
+    print(time.time() - start_time)
 
     """Use in detectionFunction.py
     path2Folder = "assets/captureIMG"

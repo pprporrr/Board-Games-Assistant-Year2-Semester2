@@ -2,6 +2,7 @@ import os, time, pygame
 from states.state import State
 from states.game_rule_1 import Game_rule_1
 from states.detect_state import detect_state
+from states.vote_state import vote
 
 class Game_info(State):
     def __init__(self, game):
@@ -51,8 +52,9 @@ class Game_info(State):
             
         elif self.Play.pressed == True:
             print('Play click')
-            self.Rule.pressed = False
-            new_state = detect_state(self.game)
+            self.Play.pressed = False
+            # new_state = detect_state(self.game)
+            new_state = vote(self.game)
             new_state.enter_state()
         
     def render(self, display):

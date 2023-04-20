@@ -80,24 +80,18 @@ def testobjectDetection(imgPath,targetClass):
 if __name__ == "__main__":
     print("Done")
     clear()
-    start_time = time.time()
-    #Object Detection Function
+    startTime = time.time()
+    print("Object Detection Function")
     tagetClass = "success"
     imgPathObj = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/IMG_6153.JPG"
     objectDetectresult, resultsJson = testobjectDetection(imgPathObj, tagetClass)
     print(f"Number Of Objects [{tagetClass}]:", objectDetectresult)
     print(resultsJson)
-    print(time.time() - start_time)
-    start_time = time.time()
-    #Cound Hand Function
+    print("Run Time: ", time.time() - startTime)
+    startTime = time.time()
+    print("Cound Hand Function")
     imgPathHand = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/test5.jpg"
     countHandResult, countedImg = testcountHand(imgPathHand)
     print("Hand Up: ", countHandResult)
     countedImg.show()
-    print(time.time() - start_time)
-
-    """Use in detectionFunction.py
-    path2Folder = "assets/captureIMG"
-    objectDetectResult = objectDetection(path2Folder, "Vote", "success", 1)
-    print("Number Of Objects: ", objectDetectResult)
-    delete(path2Folder)"""
+    print("Run Time: ", time.time() - startTime)

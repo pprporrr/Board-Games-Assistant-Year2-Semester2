@@ -204,7 +204,7 @@ class Dectect():
         # countHandResult, countedImg, countPerson = self.testcountHand(image)
         print("Hand Up: ", countHandResult)
         # print("Person: ", countPerson)
-        countedImg.show()
+        # countedImg.show()
         # print(time.time() - start_time)
         return countHandResult
     
@@ -223,7 +223,7 @@ class Dectect():
         countHandResult, countedImg, countPerson = self.testcountHand(imgPathPeople)
         # countHandResult, countedImg, countPerson = self.testcountHand(image)
         print("Person: ", countPerson)
-        countedImg.show()
+        # countedImg.show()
         # print(time.time() - start_time)
         return countPerson
 

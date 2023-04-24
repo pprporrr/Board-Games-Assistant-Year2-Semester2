@@ -19,7 +19,6 @@ class Game():
         self.load_assets()
         self.load_states()
         self.num_player = 0
-        self.num_success = 0
         self.good_team_win = 0
         self.evil_team_win = 0
         self.team_leader = 1

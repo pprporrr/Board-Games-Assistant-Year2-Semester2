@@ -11,6 +11,7 @@ class Game():
         self.GAME_W,self.GAME_H = 1600, 900
         self.SCREEN_WIDTH,self.SCREEN_HEIGHT = 1600, 900
         self.game_canvas = pygame.surface.Surface((self.GAME_W,self.GAME_H))
+        self.screen = pygame.display.set_caption("Board Game Assistant")
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT))
         self.running, self.playing = True, True
         self.actions = {"left": False, "right": False, "up" : False, "down" : False, "action1" : False, "action2" : False, "start" : False}

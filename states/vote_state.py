@@ -11,7 +11,7 @@ class vote(State):
         
         self.vote_button.check_click()
         if self.vote_button.pressed == True:
-            print('vote_button click')
+            # print('vote_button click')
             self.vote_button.pressed = False
             new_state = vote_count(self.game)
             new_state.enter_state()

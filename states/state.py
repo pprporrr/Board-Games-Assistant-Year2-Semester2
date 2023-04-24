@@ -189,37 +189,12 @@ class Dectect():
     
     def count_hand(self):
         # print("Done")
-        # clear()
+        # self.clear()
         # start_time = time.time()
         
-        # for i in range(10, 0, -1):
-        #     time.sleep(1)
-        #     print(f"Start count in {i}")
-            
         #Cound Hand Function
-        imgPathHand = r"backup\test5.jpg"
-        
-        cam_port = 0
-        cam = cv2.VideoCapture(cam_port)
-        result, image = cam.read()
-            
-        countHandResult, countedImg, countPerson = self.testcountHand(imgPathHand)
-        # countHandResult, countedImg, countPerson = self.testcountHand(image)
-        print("Hand Up: ", countHandResult)
-        # print("Person: ", countPerson)
-        # countedImg.show()
-        # print(time.time() - start_time)
-        return countHandResult
-    
-    def count_people(self):
-        # print("Done")
-        # clear()
-        # start_time = time.time()
-            
-        #Cound Hand Function
-        # imgPathHand = r"backup\test5.jpg"
-        # imgPathHand = r"backup\test4.jpg"
-        imgPathHand = r"backup\test4people1.jpg"
+        # imgPathHand = r"backup\test5people_hand_up.jpg"
+        imgPathHand = r"backup\test5people_hand_down.jpg"
         
         # cam_port = 0
         # cam = cv2.VideoCapture(cam_port)
@@ -227,8 +202,28 @@ class Dectect():
             
         countHandResult, countedImg, countPerson = self.testcountHand(imgPathHand)
         # countHandResult, countedImg, countPerson = self.testcountHand(image)
+        print("Hand Up: ", countHandResult)
+        # print("Person: ", countPerson)
+        countedImg.show()
+        # print(time.time() - start_time)
+        return countHandResult
+    
+    def count_people(self):
+        # print("Done")
+        self.clear()
+        # start_time = time.time()
+        
+        #Cound people Function
+        imgPathPeople = r"backup\test5people.jpg"
+        
+        # cam_port = 0
+        # cam = cv2.VideoCapture(cam_port)
+        # result, image = cam.read()
+            
+        countHandResult, countedImg, countPerson = self.testcountHand(imgPathPeople)
+        # countHandResult, countedImg, countPerson = self.testcountHand(image)
         print("Person: ", countPerson)
-        # countedImg.show()
+        countedImg.show()
         # print(time.time() - start_time)
         return countPerson
 
@@ -242,18 +237,16 @@ class Dectect():
         tagetClass_success = "success"
         tagetClass_fail = "fail"
         
-            # for already image
-        imgPathObj = "backup\IMG_6153.JPG"
+        # for already image
+        # imgPathObj = r"backup\4success_1fail.jpg"
+        imgPathObj = r"backup\5success.jpg"
         
-            # for img from webcam
+        # for img from webcam
         # cam_port = 0
         # cam = cv2.VideoCapture(cam_port)
         # result, image = cam.read()
         # cv2.imwrite("vote_temp_img.png", image)
         # imgPathObj = "vote_temp_img.png"
-        
-        # objectDetectresult, resultsJson = self.testobjectDetection(imgPathObj, tagetClass1)
-        # print(f"Number Of Objects [{tagetClass1}]:", objectDetectresult)
         
         objectDetectresult, resultsJson = self.testobjectDetection(imgPathObj, tagetClass_fail)
         print(f"Number Of Objects [{tagetClass_fail}]:", objectDetectresult)

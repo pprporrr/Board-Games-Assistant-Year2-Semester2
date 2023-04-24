@@ -33,14 +33,14 @@ class Vote_team(State):
         if self.time < 0 and self.start_count == True:
             self.start_count = False
             hand_count = self.Dectect.count_hand()
-            print(hand_count)
+            # print(hand_count)
             if hand_count >= self.game.num_player/2:
-                print("Approved")
+                print("Approved!")
                 new_state = Approved(self.game)
                 new_state.enter_state()
                 
             else:
-                print("Denied")
+                print("Denied!")
                 new_state = Denied(self.game)
                 new_state.enter_state()
             

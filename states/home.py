@@ -20,16 +20,15 @@ class Home(State):
         self.Mylist_button.check_click()
         self.Avalon_game.check_click()
         if self.Home_button.pressed == True:
-            print('Home_button click')
+            pass
             
         elif self.Categgory_button.pressed == True:
-            print('Categgory_button click')
+            pass
             
         elif self.Mylist_button.pressed == True:
-            print('Mylist_button click')
+            pass
             
         elif self.Avalon_game.pressed == True:
-            print('Avalon_game click')
             self.Avalon_game.pressed = False
             new_state = Game_info(self.game)
             # new_state = self.game.state_page[1]

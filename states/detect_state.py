@@ -39,7 +39,7 @@ class Detect_state(State):
             self.time = 10
             num_people = self.Dectect.count_people()
             self.game.num_player = num_people
-            print(self.game.num_player)
+            # print(self.game.num_player)
             print("Done count")
             new_state = Confirm_people_state(self.game)
             new_state.enter_state()

@@ -31,28 +31,25 @@ class Game_info(State):
         self.Play.check_click()
         
         if self.Home_button.pressed == True:
-            print('Home_button click')
             self.exit_state()
             self.Home_button.pressed = False
             
         elif self.Categgory_button.pressed == True:
-            print('Categgory_button click')
+            pass
             
         elif self.Mylist_button.pressed == True:
-            print('Mylist_button click')
+            pass
             
         elif self.Back.pressed == True:
             self.exit_state()
             self.Back.pressed = False
             
         elif self.Rule.pressed == True:
-            print('Game_rule click')
             self.Rule.pressed = False
             new_state = Game_rule_1(self.game)
             new_state.enter_state()
             
         elif self.Play.pressed == True:
-            print('Play click')
             self.Play.pressed = False
             new_state = Start_game(self.game)
             # new_state = vote(self.game)

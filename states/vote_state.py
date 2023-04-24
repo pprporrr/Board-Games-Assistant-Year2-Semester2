@@ -1,6 +1,6 @@
 import os, time, pygame
 from states.state import State
-from states.vote_count import vote_count
+from states.vote_count_test import vote_count
 
 class vote(State):
     def __init__(self, game):

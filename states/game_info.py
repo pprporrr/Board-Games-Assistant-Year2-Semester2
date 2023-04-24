@@ -1,23 +1,24 @@
 import os, time, pygame
-from states.state import State
+from states.state import State, Button
 from states.game_rule_1 import Game_rule_1
-from states.detect_state import detect_state
+from states.detect_state import Detect_state
+from states.start_game import Start_game
 from states.vote_state import vote
 
 class Game_info(State):
     def __init__(self, game):
         State.__init__(self, game)
         
-        self.Home_button = Button("HOME", 20, (255, 255, 255), (0, 0, 0), (85, 33), (829, 79))
-        self.Categgory_button = Button("CATEGORY", 20, (255, 255, 255), (0, 0, 0), (154, 33), (933, 79))
-        self.Mylist_button = Button("MY LIST", 20, (255, 255, 255), (0, 0, 0), (123, 33), (1097, 79))
-        self.Back = Button("BACK", 20, (255, 255, 255), (0, 0, 0), (85, 33), (153, 79))
-        self.Bg = Button("", 20, (255, 255, 255), (255, 255, 255), (986, 670), (307, 180))
-        self.Avalon_info = Button("", 20, (255, 255, 255), (255, 255, 255), (386, 382), (363, 239))
-        self.Play = Button("", 28, (255, 255, 255), (219, 160, 90, 76.5), (197, 55), (552, 752))
-        self.Rule = Button("", 28, (255, 255, 255), (116, 116, 116, 112.5), (197, 55), (552, 659))
-        self.Play_icon = Button("", 1, (0, 0, 0, 0), (0, 0, 0, 0), (46, 37), (588, 761))
-        self.Rule_icon = Button("", 1, (0, 0, 0, 0), (0, 0, 0, 0), (33, 28), (591, 671))
+        self.Home_button = Button("HOME", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (85, 33), (829, 79))
+        self.Categgory_button = Button("CATEGORY", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (154, 33), (933, 79))
+        self.Mylist_button = Button("MY LIST", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (123, 33), (1097, 79))
+        self.Back = Button("BACK", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (85, 33), (153, 79))
+        self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (986, 670), (307, 180))
+        self.Avalon_info = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (386, 382), (363, 239))
+        self.Play = Button("", "Lexend-VariableFont_wght.ttf", 28, (255, 255, 255), (219, 160, 90, 76.5), (197, 55), (552, 752))
+        self.Rule = Button("", "Lexend-VariableFont_wght.ttf", 28, (255, 255, 255), (116, 116, 116, 112.5), (197, 55), (552, 659))
+        self.Play_icon = Button("", "Lexend-VariableFont_wght.ttf", 1, (0, 0, 0), (0, 0, 0), (46, 37), (588, 761))
+        self.Rule_icon = Button("", "Lexend-VariableFont_wght.ttf", 1, (0, 0, 0), (0, 0, 0), (33, 28), (591, 671))
         
     def update(self, delta_time, action):
         
@@ -53,7 +54,7 @@ class Game_info(State):
         elif self.Play.pressed == True:
             print('Play click')
             self.Play.pressed = False
-            # new_state = detect_state(self.game)
+            # new_state = Start_game(self.game)
             new_state = vote(self.game)
             new_state.enter_state()
         
@@ -92,44 +93,3 @@ class Game_info(State):
         
         self.Play_icon.draw_image(display, 'Play arrow.png')
         self.Rule_icon.draw_image(display, 'Menu book.png')
-
-        
-class Button:
-    def __init__(self, text, Text_size, Text_color, button_color, width_height, pos ):
-        gui_font = pygame.font.Font(os.path.join("assets", "font", "Lexend-VariableFont_wght.ttf"), Text_size)
-        self.pos = pos
-        self.pressed = False
-        self.width_height = width_height
-        self.top_rect = pygame.Rect(pos, width_height)
-        self.top_color = button_color
-        self.text_surf = gui_font.render(text, True, Text_color)
-        self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
-        
-    def draw(self, surface):
-        pygame.draw.rect(surface, self.top_color, self.top_rect)
-        surface.blit(self.text_surf, self.text_rect)
-        
-    def draw_image(self, surface, image):
-        image = pygame.image.load(os.path.join("assets", "Game_info", image))
-        image = pygame.transform.scale(image, self.width_height)
-        surface.blit(image, self.pos)
-        
-    def draw_with_border(self, surface, border, border_color):
-        surf = pygame.Surface((self.width_height[0]+border*2, self.width_height[1]+border*2), pygame.SRCALPHA)
-        pygame.draw.rect(surf, self.top_color, (border, border, self.width_height[0], self.width_height[1]), 0)
-        for i in range(1, border):
-            pygame.draw.rect(surf, border_color, (border-i, border-i, self.width_height[0], self.width_height[1]), 1)
-        surface.blit(surf, self.top_rect)
-        surface.blit(self.text_surf, self.text_rect)
-        
-        
-    def check_click(self):
-        mouse_pos = pygame.mouse.get_pos()        
-        if self.top_rect.collidepoint(mouse_pos):
-            if pygame.mouse.get_pressed()[0]:
-                self.pressed = True
-
-            else:
-                if self.pressed == True:
-                    print('click')
-                    self.pressed = False

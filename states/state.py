@@ -264,7 +264,7 @@ class Dectect():
         
         objectDetectresult, resultsJson = self.testobjectDetection(imgPathObj, tagetClass_fail)
         print(f"Number Of Objects [{tagetClass_fail}]:", objectDetectresult)
-        self.open_image(imgPathObj) # show image
+        # self.open_image(imgPathObj) # show image
             
             # result
         # print(resultsJson)

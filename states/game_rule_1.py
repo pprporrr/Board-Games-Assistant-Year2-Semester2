@@ -33,8 +33,10 @@ class Game_rule_1(State):
         self.Next_page.check_click()
         if self.Home_button.pressed == True:
             print('Home_button click')
-            self.exit_state()
             self.Home_button.pressed = False
+            new_state = self.game.state_page[0]
+            new_state.enter_state()
+        
             
         elif self.Categgory_button.pressed == True:
             print('Categgory_button click')
@@ -43,7 +45,7 @@ class Game_rule_1(State):
             print('Mylist_button click')
             
         elif self.Next_page.pressed == True:
-            print('Next_page click')
+            # print('Next_page click')
             self.Next_page.pressed = False
             new_state = Game_rule_2(self.game)
             new_state.enter_state()

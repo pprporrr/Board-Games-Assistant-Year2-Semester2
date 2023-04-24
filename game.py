@@ -1,5 +1,9 @@
 import os, time, pygame
+# Load our scenes
 from states.home import Home
+from states.game_info import Game_info
+from states.start_game import Start_game
+from states.team_think import Team_think
 
 class Game():
     def __init__(self):
@@ -14,6 +18,17 @@ class Game():
         self.state_stack = []
         self.load_assets()
         self.load_states()
+        self.num_player = 0
+        self.num_success = 0
+        self.good_team_win = 0
+        self.evil_team_win = 0
+        self.team_leader = 1
+        self.vote_track = 0 # Track the number when vote the approval team is denie
+        self.quest_track = 0 # track the round of quest
+        self.state_page = [Home(self), Game_info(self), Team_think(self)]
+
+        # # Core attributes
+        # self.pressed = False
 
     def game_loop(self):
         while self.playing:
@@ -67,6 +82,7 @@ class Game():
 
     def render(self):
         self.state_stack[-1].render(self.game_canvas)
+        # Render current state to the screen
         self.screen.blit(pygame.transform.scale(self.game_canvas,(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)), (0,0))
         pygame.display.flip()
 
@@ -77,9 +93,12 @@ class Game():
         self.prev_time = now
 
     def draw_text(self, surface, text, Text_size, Text_color, pos):
+        # text_surface = self.font.render(text, True, color)
         gui_font = pygame.font.Font(os.path.join("assets", "font", "Lexend-VariableFont_wght.ttf"), Text_size)
         text_surface = gui_font.render(text, True, Text_color)
+        #text_surface.set_colorkey((0,0,0))
         text_rect = text_surface.get_rect(topleft = pos)
+        # text_rect.center = (pos)
         surface.blit(text_surface, text_rect)
         
     def create_rect_border(self, surface, rect_size, border, rect_color, border_color, pos):
@@ -89,43 +108,9 @@ class Game():
             pygame.draw.rect(surf, border_color, (border-i, border-i, rect_size[0], rect_size[1]), 1)
         
         surface.blit(surf, pos)
-        
-    # def draw_button(self, surface, text, Text_size, Text_color, button_color, width_height, pos):
-    #     rect_pos = (pos)
-    #     top_rect = pygame.Rect(rect_pos, (width_height))
-    #     pygame.draw.rect(surface, button_color, top_rect)
-        
-    #     gui_font = pygame.font.Font(os.path.join(self.font_dir, "Lexend-VariableFont_wght.ttf"), Text_size)
-    #     text_surface = gui_font.render(text, True, Text_color)
-    #     text_rect = text_surface.get_rect(center = top_rect.center)
-    #     surface.blit(text_surface, text_rect)
-        
-    #     self.button = Button(surface, text, Text_size, Text_color, button_color, width_height, pos)
-    #     self.button.draw()
-    #     self.button.check_click()
-        
-    # def button(self, surface, text, Text_size, Text_color, button_color, width_height, pos):
-    #     rect_pos = (pos)
-    #     self.top_rect = pygame.Rect(rect_pos, (width_height))
-    #     pygame.draw.rect(surface, button_color, self.top_rect)
-        
-    #     gui_font = pygame.font.Font(os.path.join(self.font_dir, "Lexend-VariableFont_wght.ttf"), Text_size)
-    #     text_surface = gui_font.render(text, True, Text_color)
-    #     text_rect = text_surface.get_rect(center = self.top_rect.center)
-    #     surface.blit(text_surface, text_rect)
-        
-    # def check_click(self):
-    #     mouse_pos = pygame.mouse.get_pos()
-    #     if self.top_rect.collidepoint(mouse_pos):
-    #         if pygame.mouse.get_pressed()[0]:
-    #             self.pressed = True
-                
-    #         else:
-    #             if self.pressed == True:
-    #                 print('click')
-    #                 self.pressed = False
 
     def load_assets(self):
+        # Create pointers to directories 
         self.assets_dir = os.path.join("assets")
         self.sprite_dir = os.path.join(self.assets_dir, "sprites")
         self.font_dir = os.path.join(self.assets_dir, "font")
@@ -138,39 +123,6 @@ class Game():
         for action in self.actions:
             self.actions[action] = False
             
-# class Button:
-#     def __init__(self, surface, text, Text_size, Text_color, button_color, width_height, pos ):
-#         gui_font = pygame.font.Font(os.path.join(os.path.join(os.path.join("assets"), "font"), "Lexend-VariableFont_wght.ttf"), Text_size)
-#         self.surface = surface
-        
-#         # Core attributes
-#         self.pressed = False
-        
-#         # Top rectangle
-#         self.top_rect = pygame.Rect(pos, width_height)
-#         self.top_color = button_color
-        
-#         # text
-#         self.text_surf = gui_font.render(text, True, Text_color)
-#         self.text_rect = self.text_surf.get_rect(center = self.top_rect.center)
-        
-#     def draw(self):
-#         pygame.draw.rect(self.surface, self.top_color, self.top_rect)
-#         # text_rect.center = (pos[0] + width_height[0]/2, pos[1] + width_height[1]/2)
-#         self.surface.blit(self.text_surf, self.text_rect)
-#         self.check_click()
-        
-#     def check_click(self):
-#         mouse_pos = pygame.mouse.get_pos()
-#         if self.top_rect.collidepoint(mouse_pos):
-#             if pygame.mouse.get_pressed()[0]:
-#                 self.pressed = True
-                
-#             else:
-#                 if self.pressed == True:
-#                     print('click')
-#                     self.pressed = False
-
 if __name__ == "__main__":
     g = Game()
     while g.running:

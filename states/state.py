@@ -215,10 +215,6 @@ class Dectect():
         # print("Done")
         # clear()
         # start_time = time.time()
-        
-        # for i in range(10, 0, -1):
-        #     time.sleep(1)
-        #     print(f"Start count in {i}")
             
         #Cound Hand Function
         # imgPathHand = r"backup\test5.jpg"
@@ -241,9 +237,6 @@ class Dectect():
         # count down
         # self.clear()
         # start_time = time.time()
-        for i in range(5, 0, -1):
-            time.sleep(1)
-            print(f"Start count in {i}")
             
         #Object Detection Function
         tagetClass_success = "success"

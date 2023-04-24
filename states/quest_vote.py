@@ -1,5 +1,6 @@
 import os, time, pygame
 from states.state import State, Button, Dectect
+from states.quest_reveal import Quest_reveal
 
 class Quest_vote(State):
     def __init__(self, game):
@@ -31,7 +32,9 @@ class Quest_vote(State):
             
         if self.time < 0 and self.start_count == True:
             self.start_count = False
-            
+            new_state = Quest_reveal(self.game)
+            new_state.enter_state()
+            self.start_count = True
         
     def render(self, display):
         display.fill((0, 0, 0))

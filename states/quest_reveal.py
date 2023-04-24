@@ -1,5 +1,7 @@
 import os, time, pygame
 from states.state import State, Button, Dectect
+from states.quest_success_page import Success_page
+from states.quest_fail_page import Fail_page
 
 class Quest_reveal(State):
     def __init__(self, game):
@@ -11,6 +13,7 @@ class Quest_reveal(State):
         self.Text_time = Button(f"quest result !", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (382, 124), (608, 381))
         self.Eye = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (164, 128.42), (718, 529))
         self.time = 5
+        self.num_fail = 0
         self.start_count = True
         
     def update(self, delta_time, action):
@@ -30,9 +33,24 @@ class Quest_reveal(State):
             
         if self.time < 0 and self.start_count == True:
             self.start_count = False
-            num_success = Dectect.count_vote()
-            self.game.number_success = num_success
+            self.num_fail = self.Dectect.count_vote()
             
+        if self.time < 0 and self.start_count == False:
+            if self.game.quest_track == 4 and self.num_fail >= 2:
+                print("Quest fail")
+                new_state = Fail_page(self.game)
+                new_state.enter_state()
+                
+            elif self.game.quest_track != 4 and self.num_fail >= 1:
+                print("Quest fail")
+                new_state = Fail_page(self.game)
+                new_state.enter_state()
+                
+            elif self.game.quest_track != 4 and self.num_fail == 0:
+                print("Quest success")
+                new_state = Success_page(self.game)
+                new_state.enter_state()
+                
         
     def render(self, display):
         display.fill((0, 0, 0))

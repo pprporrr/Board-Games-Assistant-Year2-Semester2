@@ -54,8 +54,8 @@ class Game_info(State):
         elif self.Play.pressed == True:
             print('Play click')
             self.Play.pressed = False
-            # new_state = Start_game(self.game)
-            new_state = vote(self.game)
+            new_state = Start_game(self.game)
+            # new_state = vote(self.game)
             new_state.enter_state()
         
     def render(self, display):

@@ -239,15 +239,15 @@ class Dectect():
     def count_vote(self):
         
         # count down
-        self.clear()
+        # self.clear()
         # start_time = time.time()
         for i in range(5, 0, -1):
             time.sleep(1)
             print(f"Start count in {i}")
             
         #Object Detection Function
-        tagetClass1 = "success"
-        tagetClass2 = "fail"
+        tagetClass_success = "success"
+        tagetClass_fail = "fail"
         
             # for already image
         imgPathObj = "backup\IMG_6153.JPG"
@@ -259,11 +259,11 @@ class Dectect():
         # cv2.imwrite("vote_temp_img.png", image)
         # imgPathObj = "vote_temp_img.png"
         
-        objectDetectresult, resultsJson = self.testobjectDetection(imgPathObj, tagetClass1)
-        print(f"Number Of Objects [{tagetClass1}]:", objectDetectresult)
+        # objectDetectresult, resultsJson = self.testobjectDetection(imgPathObj, tagetClass1)
+        # print(f"Number Of Objects [{tagetClass1}]:", objectDetectresult)
         
-        objectDetectresult, resultsJson = self.testobjectDetection(imgPathObj, tagetClass2)
-        print(f"Number Of Objects [{tagetClass2}]:", objectDetectresult)
+        objectDetectresult, resultsJson = self.testobjectDetection(imgPathObj, tagetClass_fail)
+        print(f"Number Of Objects [{tagetClass_fail}]:", objectDetectresult)
         self.open_image(imgPathObj) # show image
             
             # result

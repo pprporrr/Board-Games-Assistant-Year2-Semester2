@@ -3,7 +3,7 @@ from utils.general import non_max_suppression_kpt
 from models.experimental import attempt_load
 from utils.plots import plot_skeleton_kpts
 from utils.plots import output_to_keypoint
-import cv2, torch, time, numpy as np
+import cv2, torch, time, math, numpy as np
 from roboflow import Roboflow
 from os import system, name
 from PIL import Image
@@ -111,6 +111,31 @@ class Button:
             pass
         text_rect = self.text_surf.get_rect(topleft = self.pos)
         surface.blit(self.text_surf, text_rect)
+        
+    def draw_text_center(self, surface):
+        try:
+            self.Text_color = list(self.Text_color)
+            if self.Text_color[3] is not None:
+                gui_font = pygame.font.Font(os.path.join("assets", "font", self.text_font), self.Text_size)
+                self.text_surf = gui_font.render(self.text, True, self.Text_color)
+            self.text_surf.set_alpha(self.Text_color[3])
+        except:
+            pass
+        text_rect = self.text_surf.get_rect(center = (self.pos))
+        surface.blit(self.text_surf, text_rect)
+        
+    def draw_arc(self, surface, start_angle, stop_angle, arc_radius, tickness):
+        surf = pygame.Surface((self.width_height[0], self.width_height[1]), pygame.SRCALPHA)
+        for i in range(start_angle, math.ceil(stop_angle), 1):
+            angle = math.radians(i)
+            x = (self.width_height[0]/2) + arc_radius * math.cos(angle)
+            y = (self.width_height[1]/2) + arc_radius * math.sin(angle)
+            pygame.draw.circle(surf, self.Text_color, (int(x), int(y)), tickness)
+            
+        # surface.blit(surf, self.top_rect)
+        # surface.blit(self.text_surf, self.text_rect)
+        text_rect = self.text_surf.get_rect(topleft = self.pos)
+        surface.blit(surf, text_rect)
         
 class Dectect():
     def __init__(self, game):

@@ -16,8 +16,16 @@ class Denied(State):
             
         if self.start_count == True:
             self.game.vote_track += 1
-            if self.game.vote_track == 5:
+            if self.game.vote_track > 5:
                 print("Evil win")
+                
+            if self.game.team_leader != self.game.num_player:
+                self.game.team_leader += 1
+                print(self.game.team_leader)
+                
+            else:
+                self.game.team_leader = 1
+                
             time.sleep(5)
             new_state = self.game.state_page[2]
             new_state.enter_state()

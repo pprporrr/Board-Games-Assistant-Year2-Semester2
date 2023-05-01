@@ -3,7 +3,6 @@ from states.state import State, Button
 from states.game_rule_1 import Game_rule_1
 from states.detect_state import Detect_state
 from states.start_game import Start_game
-from states.vote_state import vote
 
 class Game_info(State):
     def __init__(self, game):
@@ -52,7 +51,6 @@ class Game_info(State):
         elif self.Play.pressed == True:
             self.Play.pressed = False
             new_state = Start_game(self.game)
-            # new_state = vote(self.game)
             new_state.enter_state()
         
     def render(self, display):

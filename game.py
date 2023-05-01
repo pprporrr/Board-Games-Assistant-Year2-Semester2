@@ -20,11 +20,13 @@ class Game():
         self.load_assets()
         self.load_states()
         self.num_player = 0
+        self.dic_result = {1 : None, 2 : None, 3 : None, 4 : None, 5 : None}
+        self.result_position = [(93, 761), (209, 761), (325, 761), (), ()]
         self.good_team_win = 0
         self.evil_team_win = 0
         self.team_leader = 1
-        self.vote_track = 0 # Track the number when vote the approval team is denie
-        self.quest_track = 0 # track the round of quest
+        self.vote_track = 1 # Track the number when vote the approval team is denie
+        self.quest_track = 1 # track the round of quest
         self.state_page = [Home(self), Game_info(self), Team_think(self)]
 
         # # Core attributes

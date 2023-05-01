@@ -15,8 +15,14 @@ class Approved(State):
     def update(self, delta_time, action):
             
         if self.start_count == True:
-            self.game.vote_track = 0
+            self.game.vote_track = 1
             self.game.quest_track += 1
+            if self.game.team_leader != self.game.num_player:
+                self.game.team_leader += 1
+                
+            else:
+                self.game.team_leader = 1
+                
             time.sleep(5)
             new_state = Quest_think(self.game)
             new_state.enter_state()

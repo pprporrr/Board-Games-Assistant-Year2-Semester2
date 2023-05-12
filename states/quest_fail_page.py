@@ -15,6 +15,7 @@ class Fail_page (State):
             
         if self.start_count == True:
             self.game.evil_team_win += 1
+            self.game.dic_result[self.game.quest_track] = "fail"
             time.sleep(5)
             
             

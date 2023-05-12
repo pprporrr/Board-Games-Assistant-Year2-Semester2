@@ -20,7 +20,7 @@ class Game():
         self.load_assets()
         self.load_states()
         self.num_player = 0
-        self.dic_result = {1 : None, 2 : None, 3 : None, 4 : None, 5 : None}
+        self.dic_result = {1 : "success", 2 : "fail", 3 : None, 4 : None, 5 : None}
         self.result_position = [(93, 761), (209, 761), (325, 761), (), ()]
         self.good_team_win = 0
         self.evil_team_win = 0

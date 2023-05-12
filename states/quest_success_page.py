@@ -15,6 +15,7 @@ class Success_page(State):
             
         if self.start_count == True:
             self.game.good_team_win += 1
+            self.game.dic_result[self.game.quest_track] = "success"
             time.sleep(5)
             
             

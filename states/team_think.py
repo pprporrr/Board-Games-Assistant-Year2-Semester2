@@ -30,6 +30,12 @@ class Team_think(State):
         self.Track_round_plate = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (614, 132.17), (958, 739))
         self.Track_round = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), self.dic_track_round[self.game.vote_track])
         
+        self.Track_quest_plate = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (614, 132.17), (65, 739))
+        self.Quest_result1 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (93, 761))
+        self.Quest_result2 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (209, 761))
+        self.Quest_result3 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (325, 761))
+        self.Quest_result4 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (441, 761))
+        self.Quest_result5 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (557, 761))
         
         
     def update(self, delta_time, action):
@@ -100,4 +106,41 @@ class Team_think(State):
         self.Phase.draw_text(display)
         self.Track_round_plate.draw_image(display, "Track_round_plate.png")
         self.Track_round.draw_image(display, "Track_round.png")
+        self.Track_quest_plate.draw_image(display, "Track_quest_plate.png")
+        for i in range(1, 5, 1):
+            if self.game.dic_result[i] != None:
+                if i == 1:
+                    if self.game.dic_result[1] == "success":
+                         self.Quest_result1.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[1] == "fail":
+                        self.Quest_result1.draw_image(display, "Quest_failed.png")
+                        
+                elif i == 2:
+                    if self.game.dic_result[2] == "success":
+                         self.Quest_result2.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[2] == "fail":
+                        self.Quest_result2.draw_image(display, "Quest_failed.png")
+                        
+                elif i == 3:
+                    if self.game.dic_result[3] == "success":
+                         self.Quest_result3.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[3] == "fail":
+                        self.Quest_result3.draw_image(display, "Quest_failed.png")
+                        
+                elif i == 4:
+                    if self.game.dic_result[4] == "success":
+                         self.Quest_result4.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[4] == "fail":
+                        self.Quest_result4.draw_image(display, "Quest_failed.png")
+                        
+                elif i == 5:
+                    if self.game.dic_result[5] == "success":
+                         self.Quest_result5.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[5] == "fail":
+                        self.Quest_result5.draw_image(display, "Quest_failed.png")
         

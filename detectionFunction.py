@@ -15,8 +15,8 @@ def delete(path2Folder):
 def objectDetection(path2Folder, state, targetClass, imgCounter, captureDevice = 0):
     if (state == "Init"):
         rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
-        project = rf.workspace().project("yolov5-avalon")
-        model = project.version(3).model
+        project = rf.workspace().project("yolov5-avalon-score")
+        model = project.version(1).model
         cap = cv2.VideoCapture(captureDevice)
     elif (state == "Vote"):
         rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")

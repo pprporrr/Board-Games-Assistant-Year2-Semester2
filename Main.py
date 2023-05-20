@@ -13,7 +13,10 @@ DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 handModel = attempt_load(WEIGHTS, DEVICE)
 rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
 project = rf.workspace().project("yolov5-avalon")
-objectModel = project.version(4).model
+questModel = project.version(4).model
+rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
+project = rf.workspace().project("yolov5-avalon-score")
+tableauModel = project.version(1).model
 
 def clear():
     if name == 'nt':
@@ -72,26 +75,42 @@ def countObject(predictions, targetClass):
             objectCounts[targetClass] += 1
     return objectCounts
 
-def testobjectDetection(imgPath,targetClass):
-    predictions = objectModel.predict(f"{imgPath}")
+def questDetection(imgPath, targetClass):
+    predictions = questModel.predict(f"{imgPath}")
+    classCounts = countObject(predictions, targetClass)
+    return classCounts[targetClass], predictions
+
+def tableauDetection(imgPath, targetClass):
+    predictions = tableauModel.predict(f"{imgPath}")
     classCounts = countObject(predictions, targetClass)
     return classCounts[targetClass], predictions
 
 if __name__ == "__main__":
     print("Done")
     clear()
-    startTime = time.time()
-    print("Object Detection Function")
-    tagetClass = "success"
-    imgPathObj = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/IMG_6153.JPG"
-    objectDetectresult, resultsJson = testobjectDetection(imgPathObj, tagetClass)
-    print(f"Number Of Objects [{tagetClass}]:", objectDetectresult)
-    print(resultsJson)
-    print("Run Time: ", time.time() - startTime)
-    startTime = time.time()
+    
+    startTime1 = time.time()
+    print("Tableau Detection Function")
+    tagetClass = "tableau8"
+    imgPathObj = "/Users/ppr/Desktop/Project/Board-Games-Assistant-Year2-Semester2/backup/Tableau8.JPG"
+    tableauDetectresult, tableauresultsJson = tableauDetection(imgPathObj, tagetClass)
+    print(f"Number Of Player [{tagetClass}]:", tableauDetectresult)
+    print(tableauresultsJson)
+    print("Run Time: ", time.time() - startTime1)
+    
+    startTime2 = time.time()
+    print("Quest Detection Function")
+    tagetClass = "fail"
+    imgPathObj = "/Users/ppr/Desktop/Project/Board-Games-Assistant-Year2-Semester2/backup/4success_1fail.jpg"
+    questDetectresult, questresultsJson = questDetection(imgPathObj, tagetClass)
+    print(f"Number Of Fail [{tagetClass}]:", questDetectresult)
+    print(questresultsJson)
+    print("Run Time: ", time.time() - startTime2)
+    
+    startTime3 = time.time()
     print("Cound Hand Function")
-    imgPathHand = "/Users/ppr/Desktop/Project/2_2 BOARDGAMESASSISTANT/backup/test5.jpg"
+    imgPathHand = "/Users/ppr/Desktop/Project/Board-Games-Assistant-Year2-Semester2/backup/Player5_hand_up.jpg"
     countHandResult, countedImg = testcountHand(imgPathHand)
     print("Hand Up: ", countHandResult)
     countedImg.show()
-    print("Run Time: ", time.time() - startTime)
+    print("Run Time: ", time.time() - startTime3)

@@ -11,8 +11,9 @@ class Game_info(State):
         self.Home_button = Button("HOME", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (85, 33), (829, 79))
         self.Categgory_button = Button("CATEGORY", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (154, 33), (933, 79))
         self.Mylist_button = Button("MY LIST", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (123, 33), (1097, 79))
-        self.Back = Button("BACK", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (85, 33), (153, 79))
+        self.Back = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (119, 35), (119, 77))
         self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (986, 670), (307, 180))
+        self.Bg_line = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1360, 1), (120, 129))
         self.Avalon_info = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (386, 382), (363, 239))
         self.Play = Button("", "Lexend-VariableFont_wght.ttf", 28, (255, 255, 255), (219, 160, 90, 76.5), (197, 55), (552, 752))
         self.Rule = Button("", "Lexend-VariableFont_wght.ttf", 28, (255, 255, 255), (116, 116, 116, 112.5), (197, 55), (552, 659))
@@ -30,8 +31,10 @@ class Game_info(State):
         self.Play.check_click()
         
         if self.Home_button.pressed == True:
-            self.exit_state()
             self.Home_button.pressed = False
+            new_state = self.game.state_page[0]
+            new_state.enter_state()
+            
             
         elif self.Categgory_button.pressed == True:
             pass
@@ -40,8 +43,10 @@ class Game_info(State):
             pass
             
         elif self.Back.pressed == True:
-            self.exit_state()
             self.Back.pressed = False
+            new_state = self.game.state_page[0]
+            new_state.enter_state()
+            
             
         elif self.Rule.pressed == True:
             self.Rule.pressed = False
@@ -59,8 +64,9 @@ class Game_info(State):
         self.Home_button.draw(display)
         self.Categgory_button.draw(display)
         self.Mylist_button.draw(display)
-        self.Back.draw(display)
+        self.Back.draw_image(display, 'Back.png')
         self.Bg.draw_image(display, 'BG.png')
+        self.Bg_line.draw_image(display, 'BG_line.png')
         self.Avalon_info.draw_image(display, 'Avalon_info.png')
         self.game.draw_text(display, 'Avalon', 72, (255, 255, 255), (791, 209))
         self.game.draw_text(display, 'Overview', 28, (255, 255, 255), (791, 429))

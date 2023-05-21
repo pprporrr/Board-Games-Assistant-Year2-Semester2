@@ -1,6 +1,6 @@
 import os, time, pygame
 from states.state import State, Button, Dectect
-from states.team_think import Team_think
+from states.role import Role_state
 
 
 class Confirm_people_state(State):
@@ -32,12 +32,12 @@ class Confirm_people_state(State):
         
         
         if self.Try_again.pressed == True:
-            self.exit_state()
             self.Try_again.pressed = False
+            self.exit_state()
             
         elif self.Confirm.pressed == True:
             self.Confirm.pressed = False
-            new_state = Team_think(self.game)
+            new_state = Role_state(self.game)
             new_state.enter_state()
             
         

@@ -10,7 +10,7 @@ class Home(State):
         self.Categgory_button = Button("CATEGORY", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (154, 33), (933, 79))
         self.Mylist_button = Button("MY LIST", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (123, 33), (1097, 79))
         self.Avalon_game = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (994, 312), (314, 195))
-        self.test = Button("TEST", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (219, 160, 90), (281.72, 312), (1026.28, 559))
+        self.Bg_line = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1360, 1), (120, 129))
         
     def update(self, delta_time, action):
         
@@ -40,6 +40,7 @@ class Home(State):
         self.Categgory_button.draw(display)
         self.Mylist_button.draw(display)
         self.Avalon_game.draw_image(display, 'Avalon_button.png')
+        self.Bg_line.draw_image(display, 'BG_line.png')
         self.game.draw_text(display, "Available", 28, (137, 137, 137), (291, 145))
         self.game.draw_text(display, "AVALON", 96, (255, 255, 255), (343, 376))
         self.game.draw_text(display, "Comingsoon...", 28, (137, 137, 137), (291, 517))

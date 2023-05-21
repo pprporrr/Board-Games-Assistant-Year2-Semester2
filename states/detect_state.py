@@ -14,10 +14,9 @@ class Detect_state(State):
         
         self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1600, 900), (0, 0))
         self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (748, 561), (426, 170))
-        # self.Text_1 = Button("Detecting players ...", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (574, 124), (512, 381))
         self.Text_time = Button(f"Detecting players !", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (574, 124), (512, 381))
-        self.arc = Button("", "Amita-Regular.ttf", 64, (255, 255, 255), (0, 0, 0), (127, 127), (736, 742))
-        self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 806))
+        self.arc = Button("", "Amita-Regular.ttf", 64, (255, 255, 255), (0, 0, 0), (112, 112), (744, 555))
+        self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 611))
         
         
     def update(self, delta_time, action):
@@ -36,7 +35,7 @@ class Detect_state(State):
             
             self.time -= 1
             self.circle = self.circle - (360/self.ori_time)
-            self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 806))
+            self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 611))
             time.sleep(1)
             
             
@@ -44,14 +43,14 @@ class Detect_state(State):
             self.start_count = False
             self.circle = 270
             self.time = self.ori_time
-            self.Text_time1 = Button(f"0", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 806))
+            self.Text_time1 = Button(f"0", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 611))
             num_people = self.Dectect.count_people()
             self.game.num_player = num_people
             # print(self.game.num_player)
             print("Done count")
             
         elif self.start_count == False:
-            self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 806))
+            self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 611))
             self.start_count = True
             new_state = Confirm_people_state(self.game)
             new_state.enter_state()

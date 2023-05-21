@@ -11,64 +11,59 @@ class Team_think(State):
         self.time = 30
         self.start_count = True
         self.circle = 270
-        self.dic_quest_round = {1 : "1st", 2 : "2nd", 3 : "3rd", 4 : "4th", 5 : "5th"}
-        self.dic_track_round = {1 : (986, 761), 2 : (1102, 761), 3 : (1218, 761), 4 : (1334, 761), 5 : (1450, 761)}
+        self.dic_track_round = {1 : (46, 820), 2 : (135, 820), 3 : (224, 820), 4 : (313, 820), 5 : (402, 820)}
+        self.num_team = (self.game.quest_track, self.game.num_player)
         
         self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1600, 900), (0, 0))
-        self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (748, 561), (445, 170))
-        self.Leader_plate = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (364, 95), (445, 42))
-        self.Quest_round_plate = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (364, 95), (829, 42))
-        self.Player_leader = Button(f"Player {self.game.team_leader} is leader", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (312, 78), (473, 50))
-        self.Quest_round = Button(f"{self.dic_quest_round[self.game.quest_track]} Quest", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (156, 78), (935, 50))
-        self.Time_to_think = Button("LEADER THINK!", "FugazOne-Regular.ttf", 50, (255, 0, 184), (255, 255, 255), (367, 73), (635, 294))
-        self.Text_time = Button(f"team approval ...", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (484, 124), (577, 367))
-        self.Describe = Button("Leader choose players to be on the team.", "Amita-Regular.ttf", 20, (255, 255, 255), (255, 255, 255), (371, 39), (633, 491))
-        self.think = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (139.81, 112), (749, 567))
-        self.arc = Button("", "Amita-Regular.ttf", 64, (255, 255, 255), (0, 0, 0), (127, 127), (736, 742))
-        self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 806))
-        self.Phase = Button("Team Building Phase", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (379, 78), (44, 793))
-        self.Track_round_plate = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (614, 132.17), (958, 739))
-        self.Track_round = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), self.dic_track_round[self.game.vote_track])
+        self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (748, 561), (426, 170))
         
-        self.Track_quest_plate = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (614, 132.17), (65, 739))
-        self.Quest_result1 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (93, 761))
-        self.Quest_result2 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (209, 761))
-        self.Quest_result3 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (325, 761))
-        self.Quest_result4 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (441, 761))
-        self.Quest_result5 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), (557, 761))
+        self.Player_leader = Button(f"Leader : player {self.game.team_leader}", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (291, 78), (673, 792))
+        self.Team_select = Button("Team select!", "Amita-Regular.ttf", 64, (238, 215, 10), (255, 255, 255), (350, 124), (625, 290))
+        
+        self.Describe = Button(f"leader select .{self.game.num_playler_team[self.num_team]}. players", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (376, 70), (612, 424))
+        self.arc = Button("", "Amita-Regular.ttf", 64, (255, 255, 255), (0, 0, 0), (112, 112), (744, 555))
+        self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 611))
+        
+        self.Phase = Button("Team Building Phase", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (341, 70), (79, 26))
+        self.Track_round = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), self.dic_track_round[self.game.vote_track])
+        
+        self.Quest_result1 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1131, 819))
+        self.Quest_result2 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1221, 819))
+        self.Quest_result3 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1310, 819))
+        self.Quest_result4 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1399, 819))
+        self.Quest_result5 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1487, 819))
         
         
     def update(self, delta_time, action):
         self.game.reset_keys()
         if self.start_count == True:
-            self.Player_leader = Button(f"Player {self.game.team_leader} is leader", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (312, 78), (473, 50))
-            self.Quest_round = Button(f"{self.dic_quest_round[self.game.quest_track]} Quest", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (156, 78), (935, 50))
-            self.Track_round = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (88, 88), self.dic_track_round[self.game.vote_track])
+            self.Player_leader = Button(f"Leader : player {self.game.team_leader}", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (291, 78), (673, 792))
+            self.Track_round = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), self.dic_track_round[self.game.vote_track])
         
         if self.time > 0 and self.start_count == True:
-            if (self.time) % 3 == 1:
-                self.Text_time = Button(f"team approval ...", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (484, 124), (577, 367))
+            # if (self.time) % 3 == 1:
+            #     self.Text_time = Button(f"Team select ...", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (484, 124), (577, 367))
                 
-            elif (self.time) % 3 == 2:
-                self.Text_time = Button(f"team approval ..", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (484, 124), (577, 367))
+            # elif (self.time) % 3 == 2:
+            #     self.Text_time = Button(f"Team select ..", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (484, 124), (577, 367))
                 
-            elif (self.time) % 3 == 0:
-                self.Text_time = Button(f"team approval .", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (484, 124), (577, 367))
+            # elif (self.time) % 3 == 0:
+            #     self.Text_time = Button(f"Team select", "Amita-Regular.ttf", 64, (255, 255, 255), (255, 255, 255), (484, 124), (577, 367))
             
             # print(self.time_bar)
             self.time -= 1
             self.circle = self.circle - (360/self.ori_time)
-            self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 806))
+            self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 611))
             time.sleep(1)
             
         elif self.time == 0 and self.start_count == True:
             self.start_count = False
             self.circle = 270
             self.time = self.ori_time
-            self.Text_time1 = Button(f"0", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 806))
+            self.Text_time1 = Button(f"0", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 611))
             
         elif self.start_count == False:
-            self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 806))
+            self.Text_time1 = Button(f"{self.time}", "Amita-Regular.ttf", 48, (255, 255, 255), (0, 0, 0), (49, 93), (800, 611))
             self.start_count = True
             new_state = Vote_team(self.game)
             new_state.enter_state()
@@ -91,22 +86,17 @@ class Team_think(State):
     def render(self, display):
         display.fill((0, 0, 0))        
         
-        self.Bg.draw_image(display, 'Avalon_BG.png')
+        self.Bg.draw_image(display, 'Gameplay_background.png')
         self.Table.draw_image(display, 'Table.png')
-        self.Leader_plate.draw_image(display, "PlayerQuest_plate.png")
-        self.Quest_round_plate.draw_image(display, "PlayerQuest_plate.png")
+
         self.Player_leader.draw_text(display)
-        self.Quest_round.draw_text(display)
-        self.Time_to_think.draw_text(display)
+        self.Team_select.draw_text(display)
         self.Describe.draw_text(display)
-        self.Text_time.draw_text(display)
+        # self.Text_time.draw_text(display)
         self.Text_time1.draw_text_center(display)
         self.arc.draw_arc(display, -90, self.circle, 50, 4)
-        self.think.draw_image(display, "Think.png")
         self.Phase.draw_text(display)
-        self.Track_round_plate.draw_image(display, "Track_round_plate.png")
         self.Track_round.draw_image(display, "Track_round.png")
-        self.Track_quest_plate.draw_image(display, "Track_quest_plate.png")
         for i in range(1, 5, 1):
             if self.game.dic_result[i] != None:
                 if i == 1:

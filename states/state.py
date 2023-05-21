@@ -272,7 +272,7 @@ class Dectect():
         # start_time = time.time()
         
         #Cound people Function
-        imgPathObj = r"backup\Tableau10.jpg"
+        imgPathObj = r"backup\Tableau5.jpg"
         
         # for img from webcam
         # cam_port = 0

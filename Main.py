@@ -15,8 +15,8 @@ rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
 project = rf.workspace().project("yolov5-avalon")
 questModel = project.version(4).model
 rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
-project = rf.workspace().project("yolov5-avalon-score")
-tableauModel = project.version(1).model
+project = rf.workspace().project("yolov5-avalon-tableau")
+tableauModel = project.version(3).model
 
 def clear():
     if name == 'nt':
@@ -83,7 +83,20 @@ def questDetection(imgPath, targetClass):
 def tableauDetection(imgPath, targetClass):
     predictions = tableauModel.predict(f"{imgPath}")
     classCounts = countObject(predictions, targetClass)
-    return classCounts[targetClass], predictions
+    if classCounts[targetClass] > 0:
+        if targetClass == "Tableau10":
+            numPlayer = 10
+        elif targetClass == "Tableau9":
+            numPlayer = 9
+        elif targetClass == "Tableau8":
+            numPlayer = 8
+        elif targetClass == "Tableau7":
+            numPlayer = 7
+        elif targetClass == "Tableau6":
+            numPlayer = 6
+        elif targetClass == "Tableau5":
+            numPlayer = 5
+    return numPlayer, predictions
 
 if __name__ == "__main__":
     print("Done")
@@ -91,21 +104,22 @@ if __name__ == "__main__":
     
     startTime1 = time.time()
     print("Tableau Detection Function")
-    tagetClass = "tableau8"
-    imgPathObj = "/Users/ppr/Desktop/Project/Board-Games-Assistant-Year2-Semester2/backup/Tableau8.JPG"
+    tagetClass = "Tableau6"
+    imgPathObj = "/Users/ppr/Desktop/Project/Board-Games-Assistant-Year2-Semester2/backup/Tableau6.JPG"
     tableauDetectresult, tableauresultsJson = tableauDetection(imgPathObj, tagetClass)
-    print(f"Number Of Player [{tagetClass}]:", tableauDetectresult)
-    print(tableauresultsJson)
-    print("Run Time: ", time.time() - startTime1)
+    print(f"Number Of Players [{tagetClass}]:", tableauDetectresult)
+    print("Run Time: ", time.time() - startTime1, "\n")
     
     startTime2 = time.time()
     print("Quest Detection Function")
-    tagetClass = "fail"
+    tagetClassSuccess = "success"
+    tagetClassFail = "fail"
     imgPathObj = "/Users/ppr/Desktop/Project/Board-Games-Assistant-Year2-Semester2/backup/4success_1fail.jpg"
-    questDetectresult, questresultsJson = questDetection(imgPathObj, tagetClass)
-    print(f"Number Of Fail [{tagetClass}]:", questDetectresult)
-    print(questresultsJson)
-    print("Run Time: ", time.time() - startTime2)
+    questDetectresultSuccess, questresultsJson = questDetection(imgPathObj, tagetClassSuccess)
+    questDetectresultFail, questresultsJson = questDetection(imgPathObj, tagetClassFail)
+    print(f"Number Of Success Cards [{tagetClassSuccess}]:", questDetectresultSuccess)
+    print(f"Number Of Fail Cards [{tagetClassFail}]:", questDetectresultFail)
+    print("Run Time: ", time.time() - startTime2, "\n")
     
     startTime3 = time.time()
     print("Cound Hand Function")
@@ -113,4 +127,4 @@ if __name__ == "__main__":
     countHandResult, countedImg = testcountHand(imgPathHand)
     print("Hand Up: ", countHandResult)
     countedImg.show()
-    print("Run Time: ", time.time() - startTime3)
+    print("Run Time: ", time.time() - startTime3, "\n")

@@ -4,6 +4,11 @@ from states.home import Home
 from states.game_info import Game_info
 from states.start_game import Start_game
 from states.team_think import Team_think
+from states.game_rule_1 import Game_rule_1
+from states.game_rule_2 import Game_rule_2
+from states.game_rule_3 import Game_rule_3
+from states.game_rule_4 import Game_rule_4
+from states.game_rule_5 import Game_rule_5
 
 class Game():
     def __init__(self):
@@ -27,7 +32,16 @@ class Game():
         self.team_leader = 1
         self.vote_track = 1 # Track the number when vote the approval team is denie
         self.quest_track = 1 # track the round of quest
+        self.num_playler_team = {(1, 0) : 2, 
+                                 (1, 5) : 2, (2, 5) : 3, (3, 5) : 2, (4, 5) : 3, (5, 5) : 3,
+                                 (1, 6) : 2, (2, 6) : 3, (3, 6) : 4, (4, 6) : 3, (5, 6) : 4,
+                                 (1, 7) : 2, (2, 7) : 3, (3, 7) : 3, (4, 7) : 4, (5, 7) : 4,
+                                 (1, 8) : 3, (2, 8) : 4, (3, 8) : 4, (4, 8) : 5, (5, 8) : 5,
+                                 (1, 9) : 3, (2, 9) : 4, (3, 9) : 4, (4, 9) : 5, (5, 9) : 5,
+                                 (1, 10) : 3, (2, 10) : 4, (3, 10) : 4, (4, 10) : 5, (5, 10) : 5}
         self.state_page = [Home(self), Game_info(self), Team_think(self)]
+        self.state_game_info = [Game_rule_1(self), Game_rule_2(self), Game_rule_3(self), Game_rule_4(self), Game_rule_5(self)]
+        
 
         # # Core attributes
         # self.pressed = False

@@ -13,7 +13,7 @@ class Fail_page (State):
         self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1600, 900), (0, 0))
         self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (748, 561), (426, 170))
         
-        self.Quest_Failed = Button("Quest failed!", "FugazOne-Regular.ttf", 72, (210, 16, 16), (255, 255, 255), (417, 140), (595, 357))
+        self.Quest_Failed = Button("Quest failed!", "Amita-Regular.ttf", 72, (210, 16, 16), (255, 255, 255), (417, 140), (595, 357))
         self.Describe = Button("evil team gets a point!", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (358, 70), (623, 497))
         self.Phase = Button("Quest Phase", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (200, 70), (148, 25))
         

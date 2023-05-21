@@ -18,7 +18,7 @@ class Quest_vote(State):
         self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1600, 900), (0, 0))
         self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (748, 561), (426, 170))
         self.Quest_result = Button("Quest result!", "Amita-Regular.ttf", 64, (238, 215, 10), (255, 255, 255), (368, 124), (616, 290))
-        self.Describe = Button("reveal quest votes", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (294, 50), (653, 431))
+        self.Describe = Button("gathering cards and reveal quest votes", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (638, 50), (481, 431))
         self.Phase = Button("Quest Phase", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (200, 70), (148, 25))
         
         self.Player_leader = Button(f"Leader : player {self.game.team_leader}", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (291, 78), (673, 792))

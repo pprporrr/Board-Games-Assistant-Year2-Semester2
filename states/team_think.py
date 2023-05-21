@@ -37,8 +37,10 @@ class Team_think(State):
         
         self.game.reset_keys()
         
+        self.num_team = (self.game.quest_track, self.game.num_player)
         self.Player_leader = Button(f"Leader : player {self.game.team_leader}", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (291, 78), (673, 792))
         self.Track_round = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), self.dic_track_round[self.game.vote_track])
+        self.Describe = Button(f"leader select {self.game.num_playler_team[self.num_team]} players", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (376, 70), (612, 424))
         
         if self.time > 0 and self.start_count == True:
             if (self.time) % 3 == 1:

@@ -13,7 +13,10 @@ DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 handModel = attempt_load(WEIGHTS, DEVICE)
 rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
 project = rf.workspace().project("yolov5-avalon")
-objectModel = project.version(4).model
+questModel = project.version(4).model
+rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
+project = rf.workspace().project("yolov5-avalon-scoretableau")
+tableauModel = project.version(1).model
 
 class State():
     def __init__(self, game):
@@ -200,7 +203,7 @@ class Dectect():
         return objectCounts
 
     def testobjectDetection(self, imgPath, targetClass):
-        predictions = objectModel.predict(f"{imgPath}")
+        predictions = questModel.predict(f"{imgPath}")
         classCounts = self.countObject(predictions, targetClass)
         return classCounts[targetClass], predictions
 
@@ -211,6 +214,36 @@ class Dectect():
         # This method will show image in any image viewer 
         im.show()
         return
+    
+    def countObject(self, predictions, targetClass):
+        objectCounts = {targetClass: 0}
+        for prediction in predictions:
+            if prediction["class"] == targetClass:
+                objectCounts[targetClass] += 1
+        return objectCounts
+    
+    def tableauDetection(self, imgPath, targetClass):
+        predictions = tableauModel.predict(f"{imgPath}")
+        print([predictions, targetClass])
+        classCounts = self.countObject(predictions, targetClass)
+        if classCounts[targetClass] > 0:
+            if targetClass == "ScoreTableau10":
+                numPlayer = 10
+            elif targetClass == "ScoreTableau9":
+                numPlayer = 9
+            elif targetClass == "ScoreTableau8":
+                numPlayer = 8
+            elif targetClass == "ScoreTableau7":
+                numPlayer = 7
+            elif targetClass == "ScoreTableau6":
+                numPlayer = 6
+            elif targetClass == "ScoreTableau5":
+                numPlayer = 5
+            else:
+                numPlayer = 0
+        else:
+            numPlayer = 0
+        return numPlayer, predictions
     
     def count_hand(self):
         # print("Done")
@@ -239,18 +272,22 @@ class Dectect():
         # start_time = time.time()
         
         #Cound people Function
-        imgPathPeople = r"backup\Player5.jpg"
+        imgPathObj = r"backup\Tableau10.jpg"
         
+        # for img from webcam
         # cam_port = 0
         # cam = cv2.VideoCapture(cam_port)
         # result, image = cam.read()
-            
-        countHandResult, countedImg, countPerson = self.testcountHand(imgPathPeople)
-        # countHandResult, countedImg, countPerson = self.testcountHand(image)
-        print("Person: ", countPerson)
+        # cv2.imwrite("people_temp_img.png", image)
+        # imgPathObj = "people_temp_img.png"
+        
+        tagetClass = "ScoreTableau5"
+        tableauDetectresult, tableauresultsJson = self.tableauDetection(imgPathObj, tagetClass)
+        self.open_image(imgPathObj)
+        print("Person: ", tableauDetectresult)
         # countedImg.show()
         # print(time.time() - start_time)
-        return countPerson
+        return tableauDetectresult
 
     def count_vote(self):
         
@@ -263,8 +300,8 @@ class Dectect():
         tagetClass_fail = "fail"
         
         # for already image
-        # imgPathObj = r"backup\4success_1fail.jpg"
-        imgPathObj = r"backup\5success.jpg"
+        imgPathObj = r"backup\4success_1fail.jpg"
+        # imgPathObj = r"backup\5success.jpg"
         
         # for img from webcam
         # cam_port = 0

@@ -22,7 +22,7 @@ class Confirm_people_state(State):
             self.num_player_pic = 'Table5people.png'
             self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (815, 627), (386, 105))
             
-        elif self.game.num_player == 6:
+        elif self.game.num_player != 5:
             self.num_player_pic = 'Table6people.png'
             self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (748, 659), (426, 105))
                 

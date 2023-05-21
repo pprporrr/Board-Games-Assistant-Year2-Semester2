@@ -6,8 +6,8 @@ class Detect_state(State):
     def __init__(self, game):
         State.__init__(self, game)
         self.Dectect = Dectect(Dectect)
-        self.time = 10
-        self.ori_time = 10
+        self.time = 5
+        self.ori_time = 5
         self.num_people = int()
         self.start_count = True
         self.circle = 270

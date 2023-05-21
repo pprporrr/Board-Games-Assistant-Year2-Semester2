@@ -1,31 +1,95 @@
 import os, time, pygame
 from states.state import State, Button, Dectect
+from states.no_winner import No_winer
+from states.evil_win import Evil_win
 
 class Fail_page (State):
     def __init__(self, game):
         State.__init__(self, game)
-        self.Dectect = Dectect(Dectect)
+        
+        self.start_count = True
+        self.dic_track_round = {1 : (46, 820), 2 : (135, 820), 3 : (224, 820), 4 : (313, 820), 5 : (402, 820)}
+        
         self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1600, 900), (0, 0))
         self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (748, 561), (426, 170))
-        self.Failed = Button("FAILED!", "FugazOne-Regular.ttf", 80, (255, 0, 0), (255, 255, 255), (293, 117), (656, 342))
-        self.X = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (156.29, 139.12), (720.51, 485.52))
-        self.start_count = True
+        
+        self.Quest_Failed = Button("Quest failed!", "FugazOne-Regular.ttf", 72, (210, 16, 16), (255, 255, 255), (417, 140), (595, 357))
+        self.Describe = Button("evil team gets a point!", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (358, 70), (623, 497))
+        self.Phase = Button("Quest Phase", "Amita-Regular.ttf", 36, (255, 255, 255), (255, 255, 255), (200, 70), (148, 25))
+        
+        self.Player_leader = Button(f"Leader : player {self.game.team_leader}", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (291, 78), (673, 792))
+        self.Track_round = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), self.dic_track_round[self.game.vote_track])
+        
+        self.Quest_result1 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1131, 819))
+        self.Quest_result2 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1221, 819))
+        self.Quest_result3 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1310, 819))
+        self.Quest_result4 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1399, 819))
+        self.Quest_result5 = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), (1487, 819))
+        
         
     def update(self, delta_time, action):
             
         if self.start_count == True:
             self.game.evil_team_win += 1
             self.game.dic_result[self.game.quest_track] = "fail"
-            time.sleep(5)
+            self.game.quest_track += 1
+            time.sleep(3)
             
+            if self.game.evil_team_win == 3:
+                new_state = Evil_win(self.game)
+                new_state.enter_state()
+            
+            elif self.game.evil_team_win != 3:
+                new_state = No_winer(self.game)
+                new_state.enter_state()
             
         
     def render(self, display):
         display.fill((0, 0, 0))
-        # self.game.draw_text(display, "Fucntion: Count the raised hands", 20, (255, 255, 255), (800, 450))
-        self.Bg.draw_image(display, 'Avalon_BG.png')
+        self.Bg.draw_image(display, 'Gameplay_background.png')
         self.Table.draw_image(display, 'Table.png')
-        self.Failed.draw_text(display)
-        self.X.draw_image(display, "Denied.png")
+        
+        self.Player_leader.draw_text(display)
+        self.Quest_Failed.draw_text(display)
+        self.Describe.draw_text(display)
+        self.Phase.draw_text(display)
+        
+        self.Track_round.draw_image(display, "Track_round.png")
+        for i in range(1, 5, 1):
+            if self.game.dic_result[i] != None:
+                if i == 1:
+                    if self.game.dic_result[1] == "success":
+                         self.Quest_result1.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[1] == "fail":
+                        self.Quest_result1.draw_image(display, "Quest_failed.png")
+                        
+                elif i == 2:
+                    if self.game.dic_result[2] == "success":
+                         self.Quest_result2.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[2] == "fail":
+                        self.Quest_result2.draw_image(display, "Quest_failed.png")
+                        
+                elif i == 3:
+                    if self.game.dic_result[3] == "success":
+                         self.Quest_result3.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[3] == "fail":
+                        self.Quest_result3.draw_image(display, "Quest_failed.png")
+                        
+                elif i == 4:
+                    if self.game.dic_result[4] == "success":
+                         self.Quest_result4.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[4] == "fail":
+                        self.Quest_result4.draw_image(display, "Quest_failed.png")
+                        
+                elif i == 5:
+                    if self.game.dic_result[5] == "success":
+                         self.Quest_result5.draw_image(display, "Quest_successed.png")
+                         
+                    elif self.game.dic_result[5] == "fail":
+                        self.Quest_result5.draw_image(display, "Quest_failed.png")
         
         

@@ -218,8 +218,8 @@ class Dectect():
         # start_time = time.time()
         
         #Cound Hand Function
-        # imgPathHand = r"backup\test5people_hand_up.jpg"
-        imgPathHand = r"backup\test5people_hand_down.jpg"
+        imgPathHand = r"backup\Player5_hand_up.jpg"
+        # imgPathHand = r"backup\Player5_hand_down.jpg"
         
         # cam_port = 0
         # cam = cv2.VideoCapture(cam_port)
@@ -239,7 +239,7 @@ class Dectect():
         # start_time = time.time()
         
         #Cound people Function
-        imgPathPeople = r"backup\test5people.jpg"
+        imgPathPeople = r"backup\Player5.jpg"
         
         # cam_port = 0
         # cam = cv2.VideoCapture(cam_port)

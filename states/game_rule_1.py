@@ -1,89 +1,100 @@
 import os, time, pygame
 from states.state import State, Button
-from states.game_rule_2 import Game_rule_2
+from states.game_rule_1_2 import Game_rule_1_2
 
 class Game_rule_1(State):
     def __init__(self, game):
         State.__init__(self, game)
         
-        self.Home_button = Button("HOME", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (85, 33), (829, 79))
-        self.Categgory_button = Button("CATEGORY", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (154, 33), (933, 79))
-        self.Mylist_button = Button("MY LIST", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (123, 33), (1097, 79))
-        self.Back = Button("BACK", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (85, 33), (153, 79))
-        self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (986, 670), (307, 180))
+        self.Back = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (119, 35), (119, 77))
+        self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1169, 670), (311, 180))
+        self.Bg_line = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1360, 1), (120, 129))
+        self.Next = Button("", "Lexend-VariableFont_wght.ttf", 28, (255, 255, 255), (0, 0, 0), (116, 35), (1331, 781))
         
+        self.Tab = Button("", "Alatsi-Regular.ttf", 20, (255, 255, 255), (0, 0, 0), (180, 670), (120, 180))
+        self.General_box = Button("", "Alatsi-Regular.ttf", 20, (255, 255, 255), (0, 0, 0), (174, 69), (123, 183))
+        self.General_text = Button("General", "Alatsi-Regular.ttf", 20, (255, 255, 255), (0, 0, 0), (68, 26), (176, 204))
         
-        self.Good = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (237, 176), (510, 362))
-        self.Bad = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (237, 180), (510, 565))
+        self.Components_box = Button("", "Alatsi-Regular.ttf", 20, (255, 255, 255), (0, 0, 0), (174, 69), (123, 252))
+        self.Components_text = Button("Components", "Alatsi-Regular.ttf", 20, (255, 255, 255, 70), (0, 0, 0), (110, 26), (155, 275))
         
+        self.Setup_box = Button("", "Alatsi-Regular.ttf", 20, (255, 255, 255), (0, 0, 0), (174, 69), (123, 321))
+        self.Setup_text = Button("Setup", "Alatsi-Regular.ttf", 20, (255, 255, 255, 70), (0, 0, 0), (51, 26), (185, 342))
         
-        self.Next_page = Button("Next page >>", "Lexend-VariableFont_wght.ttf", 28, (255, 255, 255), (219, 160, 90, 0), (181, 25), (1088, 785))
+        self.GamePlay_box = Button("", "Alatsi-Regular.ttf", 20, (255, 255, 255), (0, 0, 0), (174, 69), (123, 390))
+        self.GamePlay_text = Button("Game play", "Alatsi-Regular.ttf", 20, (255, 255, 255, 70), (0, 0, 0), (90, 26), (165, 412))
+        
+        self.HowToWin_box = Button("", "Alatsi-Regular.ttf", 20, (255, 255, 255), (0, 0, 0), (174, 69), (123, 459))
+        self.HowToWin_text = Button("How to win", "Alatsi-Regular.ttf", 20, (255, 255, 255, 70), (0, 0, 0), (96, 26), (162, 480))
         
         
     def update(self, delta_time, action):
-        # self.buttons['Home_button'] = Button(self.display, "HOME", 20, (255, 255, 255), (255, 0, 0), (85, 33), (749, 49))
-        # self.buttons['Categgory_button'] = Button(self.display, "CATEGORY", 20, (255, 255, 255), (0, 255, 0), (154, 33), (854, 49))
-        # self.buttons['Mylist_button'] = Button(self.display, "MY LIST", 20, (255, 255, 255), (0, 0, 255), (123, 33), (1018, 49))
         
         self.game.reset_keys()
-        self.Home_button.check_click()
-        self.Categgory_button.check_click()
-        self.Mylist_button.check_click()
         self.Back.check_click()
-        self.Next_page.check_click()
-        if self.Home_button.pressed == True:
-            print('Home_button click')
-            self.Home_button.pressed = False
-            new_state = self.game.state_page[0]
+        self.Next.check_click()
+        self.Components_box.check_click()
+        self.Components_text.check_click()
+        self.Setup_box.check_click()
+        self.Setup_text.check_click()
+        self.GamePlay_box.check_click()
+        self.GamePlay_text.check_click()
+        self.HowToWin_box.check_click()
+        self.HowToWin_text.check_click()
+                    
+        if self.Next.pressed == True:
+            self.Next.pressed = False
+            new_state = Game_rule_1_2(self.game)
             new_state.enter_state()
-        
             
-        elif self.Categgory_button.pressed == True:
-            print('Categgory_button click')
-            
-        elif self.Mylist_button.pressed == True:
-            print('Mylist_button click')
-            
-        elif self.Next_page.pressed == True:
-            # print('Next_page click')
-            self.Next_page.pressed = False
-            new_state = Game_rule_2(self.game)
+        elif self.Components_box.pressed == True or self.Components_text.pressed == True:
+            self.Components_box.pressed = False
+            self.Components_text.pressed = False
+            new_state = self.game.state_game_info[1]
             new_state.enter_state()
-        
+            
+        elif self.Setup_box.pressed == True or self.Setup_text.pressed == True:
+            self.Setup_box.pressed = False
+            self.Setup_text.pressed = False
+            new_state = self.game.state_game_info[2]
+            new_state.enter_state()
+            
+        elif self.GamePlay_box.pressed == True or self.GamePlay_text.pressed == True:
+            self.GamePlay_box.pressed = False
+            self.GamePlay_text.pressed = False
+            new_state = self.game.state_game_info[3]
+            new_state.enter_state()
+            
+        elif self.HowToWin_box.pressed == True or self.HowToWin_text.pressed == True:
+            self.HowToWin_box.pressed = False
+            self.HowToWin_text.pressed = False
+            new_state = self.game.state_game_info[4]
+            new_state.enter_state()
             
         elif self.Back.pressed == True:
-            self.exit_state()
             self.Back.pressed = False
+            self.exit_state()
             
         
     def render(self, display):
         display.fill((0, 0, 0))        
         
-        self.Home_button.draw(display)
-        self.Categgory_button.draw(display)
-        self.Mylist_button.draw(display)
-        self.Back.draw(display)
-        self.Bg.draw_image(display, 'BG.png')
+        self.Back.draw_image(display, 'Back.png')
+        self.Bg.draw_image(display, 'Game_rule1.1.png')
+        self.Next.draw_image(display, 'Next.png')
+        self.Bg_line.draw_image(display, 'BG_line.png')
+        
+        self.Tab.draw_image(display, 'Tab.png')
+        self.General_box.draw_image(display, 'Selected_header.png')
+        self.General_text.draw_text(display)
+        self.Components_box.draw_image(display, 'Unselected_header.png')
+        self.Components_text.draw_text(display)
+        self.Setup_box.draw_image(display, 'Unselected_header.png')
+        self.Setup_text.draw_text(display)
+        self.GamePlay_box.draw_image(display, 'Unselected_header.png')
+        self.GamePlay_text.draw_text(display)
+        self.HowToWin_box.draw_image(display, 'Unselected_header.png')
+        self.HowToWin_text.draw_text(display)
         
         
-        self.game.draw_text(display, 'Avalon Rule', 64, (255, 255, 255), (631, 212))
-        self.game.draw_text(display, 'Roles', 28, (255, 255, 255), (445, 300))
-        
-        
-        self.Good.draw_image(display, 'Good.png')
-        self.game.draw_text(display, 'Good team', 20, (255, 255, 255), (819, 362))
-        self.game.draw_text(display, ' - Merlin - knows the identity of all Evil players', 16, (255, 255, 255), (828, 406))
-        self.game.draw_text(display, ' - Loyal Servants of Arthur - do not know who is who', 16, (255, 255, 255), (828, 436))
-        self.game.draw_text(display, ' - Percival - knows who Merlin is', 16, (255, 255, 255), (828, 466))
-
-        
-        self.Bad.draw_image(display, 'Bad.png')
-        self.game.draw_text(display, 'Evil team', 20, (255, 255, 255), (819, 565))
-        self.game.draw_text(display, ' - Assassin - knows who Merlin is', 16, (255, 255, 255), (828, 609))
-        self.game.draw_text(display, ' - Mordred - unknown to Merlin', 16, (255, 255, 255), (828, 639))
-        self.game.draw_text(display, ' - Morgana - appears as Merlin to Percival', 16, (255, 255, 255), (828, 669))
-        self.game.draw_text(display, ' - The Minions of Mordred - do not know who is who', 16, (255, 255, 255), (828, 699))
-        
-        
-        self.Next_page.draw_with_border(display, 1, (255, 255, 255))
         

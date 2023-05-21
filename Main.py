@@ -15,8 +15,8 @@ rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
 project = rf.workspace().project("yolov5-avalon")
 questModel = project.version(4).model
 rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
-project = rf.workspace().project("yolov5-avalon-tableau")
-tableauModel = project.version(3).model
+project = rf.workspace().project("yolov5-avalon-scoretableau")
+tableauModel = project.version(1).model
 
 def clear():
     if name == 'nt':
@@ -84,18 +84,22 @@ def tableauDetection(imgPath, targetClass):
     predictions = tableauModel.predict(f"{imgPath}")
     classCounts = countObject(predictions, targetClass)
     if classCounts[targetClass] > 0:
-        if targetClass == "Tableau10":
+        if targetClass == "ScoreTableau10":
             numPlayer = 10
-        elif targetClass == "Tableau9":
+        elif targetClass == "ScoreTableau9":
             numPlayer = 9
-        elif targetClass == "Tableau8":
+        elif targetClass == "ScoreTableau8":
             numPlayer = 8
-        elif targetClass == "Tableau7":
+        elif targetClass == "ScoreTableau7":
             numPlayer = 7
-        elif targetClass == "Tableau6":
+        elif targetClass == "ScoreTableau6":
             numPlayer = 6
-        elif targetClass == "Tableau5":
+        elif targetClass == "ScoreTableau5":
             numPlayer = 5
+        else:
+            numPlayer = 0
+    else:
+        numPlayer = 0
     return numPlayer, predictions
 
 if __name__ == "__main__":
@@ -104,10 +108,11 @@ if __name__ == "__main__":
     
     startTime1 = time.time()
     print("Tableau Detection Function")
-    tagetClass = "Tableau6"
-    imgPathObj = "/Users/ppr/Desktop/Project/Board-Games-Assistant-Year2-Semester2/backup/Tableau6.JPG"
+    tagetClass = "ScoreTableau5"
+    imgPathObj = "/Users/ppr/Desktop/Project/Board-Games-Assistant-Year2-Semester2/backup/Tableau5.JPG"
     tableauDetectresult, tableauresultsJson = tableauDetection(imgPathObj, tagetClass)
     print(f"Number Of Players [{tagetClass}]:", tableauDetectresult)
+    print(tableauresultsJson)
     print("Run Time: ", time.time() - startTime1, "\n")
     
     startTime2 = time.time()

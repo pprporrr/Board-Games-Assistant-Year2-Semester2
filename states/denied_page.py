@@ -1,6 +1,6 @@
 import os, time, pygame
 from states.state import State, Button, Dectect
-# from states.team_think import Team_think
+from states.evil_win import Evil_win
 
 class Denied(State):
     def __init__(self, game):
@@ -32,7 +32,9 @@ class Denied(State):
         if self.start_count == True:
             self.game.vote_track += 1
             if self.game.vote_track > 5:
-                print("Evil win")
+                # print("Evil win")
+                new_state = Evil_win(self.game)
+                new_state.enter_state()
                 
             if self.game.team_leader != self.game.num_player:
                 self.game.team_leader += 1

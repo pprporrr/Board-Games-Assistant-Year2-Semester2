@@ -1,13 +1,12 @@
 import os, time, pygame
 from states.state import State, Button, Dectect
-from states.evil_win import Evil_win
 
 class Denied(State):
     def __init__(self, game):
         State.__init__(self, game)
         
         self.start_count = True
-        self.dic_track_round = {1 : (46, 820), 2 : (135, 820), 3 : (224, 820), 4 : (313, 820), 5 : (402, 820)}
+        self.dic_track_round = {1 : (46, 820), 2 : (135, 820), 3 : (224, 820), 4 : (313, 820), 5 : (402, 820), 6 : (402, 820)}
         
         self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1600, 900), (0, 0))
         self.Table = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (748, 561), (426, 170))
@@ -30,22 +29,29 @@ class Denied(State):
         self.Track_round = Button("", "Amita-Regular.ttf", 40, (255, 255, 255), (255, 255, 255), (63, 63), self.dic_track_round[self.game.vote_track])
                 
         if self.start_count == True:
-            self.game.vote_track += 1
-            if self.game.vote_track > 5:
-                # print("Evil win")
-                new_state = Evil_win(self.game)
+            if self.game.vote_track == 5:
+                self.game.vote_track = 1
+                print("Evil win")
+                time.sleep(5)
+                new_state = self.game.state_page[3]
                 new_state.enter_state()
                 
-            if self.game.team_leader != self.game.num_player:
+            elif self.game.team_leader != self.game.num_player:
                 self.game.team_leader += 1
+                self.game.vote_track += 1
                 print(self.game.team_leader)
+                time.sleep(5)
+                new_state = self.game.state_page[2]
+                new_state.enter_state()
                 
             else:
                 self.game.team_leader = 1
+                self.game.vote_track += 1
+                time.sleep(5)
+                new_state = self.game.state_page[2]
+                new_state.enter_state()
                 
-            time.sleep(5)
-            new_state = self.game.state_page[2]
-            new_state.enter_state()
+            
             
             
         

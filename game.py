@@ -4,6 +4,7 @@ from states.home import Home
 from states.game_info import Game_info
 from states.start_game import Start_game
 from states.team_think import Team_think
+from states.evil_win import Evil_win
 from states.game_rule_1 import Game_rule_1
 from states.game_rule_2 import Game_rule_2
 from states.game_rule_3 import Game_rule_3
@@ -39,10 +40,9 @@ class Game():
                                  (1, 8) : 3, (2, 8) : 4, (3, 8) : 4, (4, 8) : 5, (5, 8) : 5,
                                  (1, 9) : 3, (2, 9) : 4, (3, 9) : 4, (4, 9) : 5, (5, 9) : 5,
                                  (1, 10) : 3, (2, 10) : 4, (3, 10) : 4, (4, 10) : 5, (5, 10) : 5}
-        self.state_page = [Home(self), Game_info(self), Team_think(self)]
+        self.state_page = [Home(self), Game_info(self), Team_think(self), Evil_win(self)]
         self.state_game_info = [Game_rule_1(self), Game_rule_2(self), Game_rule_3(self), Game_rule_4(self), Game_rule_5(self)]
         
-
         # # Core attributes
         # self.pressed = False
 

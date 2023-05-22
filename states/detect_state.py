@@ -1,6 +1,8 @@
 import os, time, pygame
 from states.state import State, Button, Dectect
 from states.confirm_player import Confirm_people_state
+import tkinter as tk # Tkinter for Python&nbsp;2
+root = tk.Tk()
 
 class Detect_state(State):
     def __init__(self, game):
@@ -21,7 +23,7 @@ class Detect_state(State):
         
     def update(self, delta_time, action):
         
-        self.game.reset_keys() 
+        self.game.reset_keys()
             
         if self.time > 0 and self.start_count == True:
             if (self.time) % 3 == 1:

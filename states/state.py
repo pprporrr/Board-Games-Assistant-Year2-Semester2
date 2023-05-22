@@ -12,11 +12,10 @@ WEIGHTS = "assets\yolov7-w6-pose.pt"
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 handModel = attempt_load(WEIGHTS, DEVICE)
 rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
-project = rf.workspace().project("yolov5-avalon")
-questModel = project.version(4).model
-rf = Roboflow(api_key="szKo1b01Oo737AK9Apzk")
-project = rf.workspace().project("yolov5-avalon-scoretableau")
-tableauModel = project.version(1).model
+Quest_project = rf.workspace().project("yolov5-avalon")
+questModel = Quest_project.version(4).model
+Table_project = rf.workspace().project("yolov5-avalon-scoretableau")
+tableauModel = Table_project.version(1).model
 
 class State():
     def __init__(self, game):
@@ -73,16 +72,6 @@ class Button:
             pass
         surface.blit(temp, self.pos)
         
-    # def blit_alpha(target, source, location, opacity):
-    #     x = location[0]
-    #     y = location[1]
-    #     temp = pygame.Surface((source.get_width(), source.get_height())).convert()
-    #     temp.blit(target, (-x, -y))
-    #     temp.blit(source, (0, 0))
-    #     temp.set_alpha(opacity)        
-    #     target.blit(temp, location)
-    #     # blit_alpha(screen, happy, (100, 100), 128)
-        
     def draw_with_border(self, surface, border, border_color):
         surf = pygame.Surface((self.width_height[0]+border*2, self.width_height[1]+border*2), pygame.SRCALPHA)
         pygame.draw.rect(surf, self.top_color, (border, border, self.width_height[0], self.width_height[1]), 0)
@@ -135,8 +124,6 @@ class Button:
             y = (self.width_height[1]/2) + arc_radius * math.sin(angle)
             pygame.draw.circle(surf, self.Text_color, (int(x), int(y)), tickness)
             
-        # surface.blit(surf, self.top_rect)
-        # surface.blit(self.text_surf, self.text_rect)
         text_rect = self.text_surf.get_rect(topleft = self.pos)
         surface.blit(surf, text_rect)
         
@@ -224,26 +211,30 @@ class Dectect():
     
     def tableauDetection(self, imgPath, targetClass):
         predictions = tableauModel.predict(f"{imgPath}")
-        print([predictions, targetClass])
-        classCounts = self.countObject(predictions, targetClass)
-        if classCounts[targetClass] > 0:
-            if targetClass == "ScoreTableau10":
+        print(predictions)
+        try:
+            prdiction_class = predictions[0]["class"]
+            classCounts = self.countObject(predictions, targetClass)
+            if prdiction_class == "ScoreTableau10":
                 numPlayer = 10
-            elif targetClass == "ScoreTableau9":
+            elif prdiction_class == "ScoreTableau9":
                 numPlayer = 9
-            elif targetClass == "ScoreTableau8":
+            elif prdiction_class == "ScoreTableau8":
                 numPlayer = 8
-            elif targetClass == "ScoreTableau7":
+            elif prdiction_class == "ScoreTableau7":
                 numPlayer = 7
-            elif targetClass == "ScoreTableau6":
+            elif prdiction_class == "ScoreTableau6":
                 numPlayer = 6
-            elif targetClass == "ScoreTableau5":
+            elif prdiction_class == "ScoreTableau5":
                 numPlayer = 5
             else:
                 numPlayer = 0
-        else:
+
+            return numPlayer, predictions
+        
+        except:
             numPlayer = 0
-        return numPlayer, predictions
+            return numPlayer, predictions
     
     def count_hand(self):
         # print("Done")
@@ -251,12 +242,15 @@ class Dectect():
         # start_time = time.time()
         
         #Cound Hand Function
-        imgPathHand = r"backup\Player5_hand_up.jpg"
-        # imgPathHand = r"backup\Player5_hand_down.jpg"
+        # imgPathHand = r"backup\Player5_hand_up.jpg"
+        imgPathHand = r"backup\Player5_hand_down.jpg"
         
-        # cam_port = 0
-        # cam = cv2.VideoCapture(cam_port)
-        # result, image = cam.read()
+        camera = cv2.VideoCapture(0)
+        ret, frame = camera.read()
+        
+        imgPathHand = r"C:\Prab\Year 2\Cognitive computer\Board-Games-Assistant-Year2-Semester2\capturePic\HandCapturedPicture.jpg"
+        cv2.imwrite(imgPathHand, frame)
+        camera.release()
             
         countHandResult, countedImg, countPerson = self.testcountHand(imgPathHand)
         # countHandResult, countedImg, countPerson = self.testcountHand(image)
@@ -268,22 +262,32 @@ class Dectect():
     
     def count_people(self):
         # print("Done")
-        self.clear()
+        # self.clear()
         # start_time = time.time()
         
         #Cound people Function
-        imgPathObj = r"backup\Tableau5.jpg"
+        imgPathObj = r"backup\Tableau8.jpg"
         
-        # for img from webcam
-        # cam_port = 0
-        # cam = cv2.VideoCapture(cam_port)
-        # result, image = cam.read()
-        # cv2.imwrite("people_temp_img.png", image)
-        # imgPathObj = "people_temp_img.png"
+        # define a video capture object
+        count = 0
+        camera = cv2.VideoCapture(1)
         
-        tagetClass = "ScoreTableau5"
+        while True:
+            ret, frame = camera.read()
+            # cv2.imshow('frame', frame)
+            if count >= 150:
+                print("Capture")
+                imgPathObj = r"C:\Prab\Year 2\Cognitive computer\Board-Games-Assistant-Year2-Semester2\capturePic\PeopleCapturedPicture.jpg"
+                cv2.imwrite(imgPathObj, frame)
+                # print(tableauModel.predict(imgPathObj, confidence=40, overlap=30).json())
+                break
+            count += 1
+            
+        camera.release()
+        
+        tagetClass = "ScoreTableau"
         tableauDetectresult, tableauresultsJson = self.tableauDetection(imgPathObj, tagetClass)
-        self.open_image(imgPathObj)
+        # self.open_image(imgPathObj)
         print("Person: ", tableauDetectresult)
         # countedImg.show()
         # print(time.time() - start_time)
@@ -303,12 +307,22 @@ class Dectect():
         imgPathObj = r"backup\4success_1fail.jpg"
         # imgPathObj = r"backup\5success.jpg"
         
-        # for img from webcam
-        # cam_port = 0
-        # cam = cv2.VideoCapture(cam_port)
-        # result, image = cam.read()
-        # cv2.imwrite("vote_temp_img.png", image)
-        # imgPathObj = "vote_temp_img.png"
+        # define a video capture object
+        count = 0
+        camera = cv2.VideoCapture(1)
+        
+        while True:
+            ret, frame = camera.read()
+            # cv2.imshow('frame', frame)
+            if count >= 150:
+                print("Capture")
+                imgPathObj = r"C:\Prab\Year 2\Cognitive computer\Board-Games-Assistant-Year2-Semester2\capturePic\QuestCapturedPicture.jpg"
+                cv2.imwrite(imgPathObj, frame)
+                # print(tableauModel.predict(imgPathObj, confidence=40, overlap=30).json())
+                break
+            count += 1
+            
+        camera.release()
         
         objectDetectresult, resultsJson = self.testobjectDetection(imgPathObj, tagetClass_fail)
         print(f"Number Of Objects [{tagetClass_fail}]:", objectDetectresult)

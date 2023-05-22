@@ -60,11 +60,11 @@ class Start_game(State):
                 
         if self.text_transition == True and self.run2 != 250:
             self.run2 += 25
-            self.Start = Button("START!", "FugazOne-Regular.ttf", 96, (255, 255, 255, self.run2), (255, 255, 255), (343, 141), (629, 380))
+            self.Start = Button("START!", "Amita-Regular.ttf", 120, (255, 255, 255, self.run2), (255, 255, 255), (374, 233), (613, 334))
                 
         elif self.text_transition == True and self.run2 == 250:
             self.text_transition = False
-            self.Start = Button("START!", "FugazOne-Regular.ttf", 96, (255, 255, 255, 255), (255, 255, 255), (343, 141), (629, 380))
+            self.Start = Button("START!", "Amita-Regular.ttf", 120, (255, 255, 255, 255), (255, 255, 255), (374, 233), (613, 334))
             
         if self.text_transition == False and self.run2 == 250:
             time.sleep(5)

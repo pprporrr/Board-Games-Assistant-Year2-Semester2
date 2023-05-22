@@ -1,11 +1,12 @@
 import os, time, pygame
-from states.state import State, Button
+from states.state import State, Button, Dectect
 from states.game_info import Game_info
 
 class Home(State):
     def __init__(self, game):
         State.__init__(self, game)
         
+        self.Dectect = Dectect(Dectect)
         self.Home_button = Button("HOME", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (85, 33), (829, 79))
         self.Categgory_button = Button("CATEGORY", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (154, 33), (933, 79))
         self.Mylist_button = Button("MY LIST", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (0, 0, 0), (123, 33), (1097, 79))
@@ -14,6 +15,7 @@ class Home(State):
         
     def update(self, delta_time, action):
         
+        self.Dectect.clear()
         self.game.reset_keys()
         self.Home_button.check_click()
         self.Categgory_button.check_click()

@@ -11,7 +11,7 @@ class Team_think(State):
         self.time = 5 # 30
         self.start_count = True
         self.circle = 270
-        self.dic_track_round = {1 : (46, 820), 2 : (135, 820), 3 : (224, 820), 4 : (313, 820), 5 : (402, 820)}
+        self.dic_track_round = {1 : (46, 820), 2 : (135, 820), 3 : (224, 820), 4 : (313, 820), 5 : (402, 820), 6 : (402, 820)}
         self.num_team = (self.game.quest_track, self.game.num_player)
         
         self.Bg = Button("", "Lexend-VariableFont_wght.ttf", 20, (255, 255, 255), (255, 255, 255), (1600, 900), (0, 0))

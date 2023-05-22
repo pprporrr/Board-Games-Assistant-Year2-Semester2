@@ -6,7 +6,7 @@ from utils.plots import output_to_keypoint
 import cv2, torch, time, math, numpy as np
 from roboflow import Roboflow
 from os import system, name
-from PIL import Image
+from PIL import Image,ImageDraw
 
 WEIGHTS = "assets\yolov7-w6-pose.pt"
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -165,19 +165,25 @@ class Dectect():
     def countHand(self, predictions):
         count = []
         for i in range(predictions.shape[0]):
-            angularRight = self.findAngular(predictions[0][24:27], predictions[0][18:21], predictions[0][36:39]) * 100
-            angularLeft = self.findAngular(predictions[0][21:24], predictions[0][15:18], predictions[0][33:36]) * 100
+            angularRight = self.findAngular(predictions[i][24:27], predictions[i][18:21], predictions[i][36:39]) * 100
+            angularLeft = self.findAngular(predictions[i][21:24], predictions[i][15:18], predictions[i][33:36]) * 100
             if angularLeft >= 100 or angularRight >= 100:
                 count.append(i)
-        return count, len(predictions)
+
+        return count, len(count)
 
     def testcountHand(self, image):
+        
         image = Image.open(image) # If you want to use path can uncommend it
         predictions = self.predictKeypoints(image)
         image = np.asarray(image)
+        print(len(predictions))
         handUp, countPerson = self.countHand(predictions)
         for idx in handUp:
+            print(idx)
             plot_skeleton_kpts(image, predictions[idx].T, 3)
+          
+            
         image = Image.fromarray(image)
         return len(handUp), image, countPerson
         
@@ -242,8 +248,8 @@ class Dectect():
         # start_time = time.time()
         
         #Cound Hand Function
-        # imgPathHand = r"backup\Player5_hand_up.jpg"
-        imgPathHand = r"backup\Player5_hand_down.jpg"
+        imgPathHand = r"backup\Player5_hand_up.jpg"
+        # imgPathHand = r"backup\Player5_hand_down.jpg"
         
         camera = cv2.VideoCapture(0)
         ret, frame = camera.read()

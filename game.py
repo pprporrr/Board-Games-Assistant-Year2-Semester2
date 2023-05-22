@@ -43,6 +43,7 @@ class Game():
         self.state_page = [Home(self), Game_info(self), Team_think(self), Evil_win(self)]
         self.state_game_info = [Game_rule_1(self), Game_rule_2(self), Game_rule_3(self), Game_rule_4(self), Game_rule_5(self)]
         
+
         # # Core attributes
         # self.pressed = False
 

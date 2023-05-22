@@ -82,6 +82,11 @@ class Quest_vote(State):
                 print("Quest success")
                 new_state = Success_page(self.game)
                 new_state.enter_state()
+                
+            elif self.game.quest_track == 4 and self.num_fail == 0:
+                print("Quest success")
+                new_state = Success_page(self.game)
+                new_state.enter_state()
         
     def render(self, display):
         display.fill((0, 0, 0))        
